@@ -1,0 +1,28 @@
+---
+- name: Deploy Kibana
+  hosts: kibana_server
+  become: true
+  tasks:
+    - name: Install Docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Start and enable Docker service
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Run Kibana container
+      community.docker.docker_container:
+        name: kibana
+        image: docker.elastic.co/kibana/kibana:7.17.0
+        ports:
+          - "5601:5601"
+        environment:
+          - ELASTICSEARCH_HOSTS=http://<YOUR_ELASTICSEARCH_SERVER_IP>:9200
+        restart_policy: always
+
+

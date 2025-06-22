@@ -1,0 +1,47 @@
+
+# argocd.yaml
+
+# 1. Tạo namespace ArgoCD
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+---
+# 2. Cài đặt ArgoCD từ manifests chính thức
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: install-argocd
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: kubectl
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+        securityContext:
+          runAsUser: 0
+      restartPolicy: OnFailure
+---
+# 3. Expose ArgoCD Server qua NodePort
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-server-nodeport
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-server
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: argocd-server
+  ports:
+    - name: https
+      port: 443
+      targetPort: 8080
+      nodePort: 32080 

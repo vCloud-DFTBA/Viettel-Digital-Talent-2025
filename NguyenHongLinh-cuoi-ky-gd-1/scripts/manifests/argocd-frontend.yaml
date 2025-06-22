@@ -1,0 +1,15 @@
+project: default
+source:
+  repoURL: 'https://github.com/honglinh0812/CD-VDT.git'
+  path: config/frontend-chart
+  targetRevision: main
+  helm:
+    valueFiles:
+      - values.yaml
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: argocd
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
