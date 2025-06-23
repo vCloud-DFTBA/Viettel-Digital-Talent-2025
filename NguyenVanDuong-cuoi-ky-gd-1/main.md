@@ -10,3 +10,5 @@ Một số khó khăn em gặp phải trong quá trình làm bài như:
 - Cấu hình máy tính của em không được khỏe nên gây khó khăn trong quá trình làm bài (Đã có lúc bị down cụm do sử dụng quá RAM, CPU)
 
 Qua đây, em cũng xin gửi lời cảm ơn đến tất cả anh/chị Mentor vì đã dẫn dắt và truyền đạt nhiều kiến thức bổ ích cho em trong giai đoạn 1 của `Viettel Digital Talent 2025 mảng Cloud`. từ chị Trang quản lý, đến anh Việt Anh, anh Đức, anh Nam, anh Niệm, chị Miền,... và các anh chị Mentor khác.
+
+Em mong rằng sẽ có thể tiếp tục đồng hành cùng mọi người trong phase 2 của VDT2025 - Cloud
