@@ -3,7 +3,7 @@
 Kiến trúc của web app theo mô hình microservices như sau:
 ![](../../images/web-architecture.jpg)
 
-Frontend của webapp được viết bằng ReactJS, 2 api backend service được viết bằng FastAPI. API user service có nhiệm vụ quản lý account, API car service có nhiệm vụ quản lý danh sách oto, car service có kết nối đến user service để authen/authorize các request.
+Frontend của webapp được viết bằng ReactJS, 2 api backend service được viết bằng FastAPI. API user service có nhiệm vụ quản lý account, API car service có nhiệm vụ quản lý danh sách xe, car service có kết nối đến user service để authen/authorize các request.
 - Repo src code frontend: https://github.com/nguyentankdb17/microservice_app-frontend
 - Repo src code API backend: 
 https://github.com/nguyentankdb17/microservice_app-api
