@@ -1,6 +1,6 @@
 # Cấu trúc bài báo cáo bao gồm : 
 ## 1. Triển khai Kubernetes
-[Triển khai Kubernetes](./TrienKhaiK8s/TrienKhaiK8s.md)
+[Triển khai Kubernetes](./1.TrienKhaiK8s/TrienKhaiK8s.md)
 ## 2. Triển khai web application sử dụng các DevOps tools & practices
 [Triển khai web application sử dụng các DevOps tools & practices](./2.K8sHelmChart/K8sHelmChart.md)
 ## 3. CI/CD 
