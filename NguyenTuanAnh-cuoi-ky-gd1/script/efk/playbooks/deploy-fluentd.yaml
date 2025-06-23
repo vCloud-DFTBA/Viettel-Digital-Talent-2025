@@ -1,0 +1,22 @@
+- name: Deploy Fluentd
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: Apply Fluentd ConfigMap
+      kubernetes.core.k8s:
+        state: present
+        namespace: logging
+        src: ../roles/fluentd/files/fluentd-configmap.yaml
+
+    - name: Apply Fluentd ServiceAccount
+      kubernetes.core.k8s:
+        state: present
+        namespace: logging
+        src: ../roles/fluentd/files/fluentd-sa.yaml
+
+    - name: Apply Fluentd DaemonSet
+      kubernetes.core.k8s:
+        state: present
+        namespace: logging
+        src: ../roles/fluentd/files/fluentd-daemonset.yaml

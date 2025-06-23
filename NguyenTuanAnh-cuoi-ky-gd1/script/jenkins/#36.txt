@@ -1,0 +1,540 @@
+Generic Cause
+Obtained Jenkinsfile from git https://github.com/ntacsharp/my-app-frontend
+[Pipeline] Start of Pipeline
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes jenkins/my-app-cicd-frontend-36-f7v47-nwhx4-74cn4
+[PodInfo] jenkins/my-app-cicd-frontend-36-f7v47-nwhx4-74cn4
+	Pod [Pending][Unschedulable] 0/2 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 1 node(s) had untolerated taint {node.kubernetes.io/disk-pressure: }. preemption: 0/2 nodes are available: 2 Preemption is not helpful for scheduling.
+[PodInfo] jenkins/my-app-cicd-frontend-36-f7v47-nwhx4-74cn4
+	Pod [Pending][Unschedulable] 0/2 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 1 node(s) had untolerated taint {node.kubernetes.io/disk-pressure: }. preemption: 0/2 nodes are available: 2 Preemption is not helpful for scheduling.
+Still waiting to schedule task
+‘my-app-cicd-frontend-36-f7v47-nwhx4-74cn4’ is offline
+[PodInfo] jenkins/my-app-cicd-frontend-36-f7v47-nwhx4-74cn4
+	Container [docker] waiting [ContainerCreating] No message
+	Container [jnlp] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [docker jnlp]
+[PodInfo] jenkins/my-app-cicd-frontend-36-f7v47-nwhx4-74cn4
+	Container [docker] waiting [ContainerCreating] No message
+	Container [jnlp] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [docker jnlp]
+[PodInfo] jenkins/my-app-cicd-frontend-36-f7v47-nwhx4-74cn4
+	Container [docker] waiting [ContainerCreating] No message
+	Container [jnlp] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [docker jnlp]
+Agent my-app-cicd-frontend-36-f7v47-nwhx4-74cn4 is provisioned from template my-app-cicd-frontend_36-f7v47-nwhx4
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    kubernetes.jenkins.io/last-refresh: "1750590564132"
+    buildUrl: "http://jenkins.jenkins.svc.cluster.local:8080/job/my-app-cicd-frontend/36/"
+    runUrl: "job/my-app-cicd-frontend/36/"
+  labels:
+    jenkins/jenkins-jenkins-agent: "true"
+    jenkins/label-digest: "73b0cf0753e48dea6b449023d7f66a1e8fc2160a"
+    jenkins/label: "my-app-cicd-frontend_36-f7v47"
+    kubernetes.jenkins.io/controller: "http___jenkins_jenkins_svc_cluster_local_8080x"
+  name: "my-app-cicd-frontend-36-f7v47-nwhx4-74cn4"
+  namespace: "jenkins"
+spec:
+  containers:
+  - command:
+    - "cat"
+    image: "docker:latest"
+    name: "docker"
+    tty: true
+    volumeMounts:
+    - mountPath: "/var/run/docker.sock"
+      name: "docker-sock"
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-agent.jenkins.svc.cluster.local:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "my-app-cicd-frontend-36-f7v47-nwhx4-74cn4"
+    - name: "REMOTING_OPTS"
+      value: "-noReconnectAfter 1d"
+    - name: "JENKINS_NAME"
+      value: "my-app-cicd-frontend-36-f7v47-nwhx4-74cn4"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins.jenkins.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:latest"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    kubernetes.io/os: "linux"
+  restartPolicy: "Never"
+  volumes:
+  - hostPath:
+      path: "/var/run/docker.sock"
+    name: "docker-sock"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on my-app-cicd-frontend-36-f7v47-nwhx4-74cn4 in /home/jenkins/agent/workspace/my-app-cicd-frontend
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github_cre
+Cloning the remote Git repository
+Cloning repository https://github.com/ntacsharp/my-app-frontend
+ > git init /home/jenkins/agent/workspace/my-app-cicd-frontend # timeout=10
+Fetching upstream changes from https://github.com/ntacsharp/my-app-frontend
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+using GIT_ASKPASS to set credentials github_cre
+ > git fetch --tags --force --progress -- https://github.com/ntacsharp/my-app-frontend +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/ntacsharp/my-app-frontend # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 221baac9dd4f5f5967e99d5292a688220f459353 (refs/remotes/origin/master)
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 221baac9dd4f5f5967e99d5292a688220f459353 # timeout=10
+Commit message: "fix"
+ > git rev-list --no-walk 221baac9dd4f5f5967e99d5292a688220f459353 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] echo
+Checking out source code
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github_cre
+Fetching changes from the remote Git repository
+Checking out Revision 221baac9dd4f5f5967e99d5292a688220f459353 (refs/remotes/origin/master)
+Commit message: "fix"
+ > git rev-parse --resolve-git-dir /home/jenkins/agent/workspace/my-app-cicd-frontend/.git # timeout=10
+ > git config remote.origin.url https://github.com/ntacsharp/my-app-frontend # timeout=10
+Fetching upstream changes from https://github.com/ntacsharp/my-app-frontend
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+using GIT_ASKPASS to set credentials github_cre
+ > git fetch --tags --force --progress -- https://github.com/ntacsharp/my-app-frontend +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 221baac9dd4f5f5967e99d5292a688220f459353 # timeout=10
+[Pipeline] echo
+Checking out completete
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Get Git Tag)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Getting Git tag
+[Pipeline] sh
++ git describe --tags --exact-match
+[Pipeline] echo
+Git tag: 1.0.4
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Check Required Files)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Finding Dockerfile and package.json
+[Pipeline] fileExists
+[Pipeline] fileExists
+[Pipeline] echo
+Found Dockerfile and package.json
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Check Docker)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Checking Docker
+[Pipeline] sh
++ echo '>> PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+>> PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ echo '>> Check docker binary:'
+>> Check docker binary:
+[Pipeline] sh
++ hostname
++ echo 'Running in container: my-app-cicd-frontend-36-f7v47-nwhx4-74cn4'
+Running in container: my-app-cicd-frontend-36-f7v47-nwhx4-74cn4
+[Pipeline] sh
++ which docker
+[Pipeline] sh
++ docker version --format '{{.Server.Version}}'
+[Pipeline] echo
+Docker version: 27.5.1
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Building Docker image...
+[Pipeline] sh
++ docker build -t tuanasanh/my-app-frontend-image:1.0.4 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 304B done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:18-alpine
+#2 DONE 1.7s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [builder 1/6] FROM docker.io/library/node:18-alpine@sha256:8d6421d663b4c28fd3ebc498332f249011d118945588d0a35cb9bc4b8ca09d9e
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 385.51kB 0.1s done
+#5 DONE 0.2s
+
+#6 [builder 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [builder 3/6] COPY package*.json ./
+#7 DONE 0.1s
+
+#8 [builder 4/6] RUN npm install
+#8 35.38 
+#8 35.38 added 351 packages, and audited 352 packages in 34s
+#8 35.38 
+#8 35.38 140 packages are looking for funding
+#8 35.38   run `npm fund` for details
+#8 35.38 
+#8 35.38 found 0 vulnerabilities
+#8 35.38 npm notice
+#8 35.38 npm notice New major version of npm available! 10.8.2 -> 11.4.2
+#8 35.38 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+#8 35.38 npm notice To update run: npm install -g npm@11.4.2
+#8 35.38 npm notice
+#8 DONE 35.7s
+
+#9 [builder 3/6] COPY package*.json ./
+#9 CACHED
+
+#10 [builder 4/6] RUN npm install
+#10 CACHED
+
+#11 [builder 5/6] COPY . .
+#11 DONE 0.3s
+
+#12 [builder 6/6] RUN npm run build
+#12 1.304 
+#12 1.304 > my-app-frontend@0.1.0 build
+#12 1.304 > next build
+#12 1.304 
+#12 2.858 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#12 2.858 This information is used to shape Next.js' roadmap and prioritize features.
+#12 2.858 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#12 2.858 https://nextjs.org/telemetry
+#12 2.858 
+#12 3.227    ▲ Next.js 15.3.4
+#12 3.228 
+#12 3.299    Creating an optimized production build ...
+#12 35.70  ✓ Compiled successfully in 24.0s
+#12 35.72    Linting and checking validity of types ...
+#12 53.08    Collecting page data ...
+#12 57.12    Generating static pages (0/6) ...
+#12 59.73    Generating static pages (1/6) 
+#12 59.85    Generating static pages (2/6) 
+#12 59.85    Generating static pages (4/6) 
+#12 59.85  ✓ Generating static pages (6/6)
+#12 60.39    Finalizing page optimization ...
+#12 60.39    Collecting build traces ...
+#12 73.03 
+#12 73.04 Route (app)                                 Size  First Load JS
+#12 73.04 ┌ ○ /                                      421 B         101 kB
+#12 73.04 ├ ○ /_not-found                            977 B         102 kB
+#12 73.04 └ ƒ /api/metrics                           135 B         101 kB
+#12 73.04 + First Load JS shared by all             101 kB
+#12 73.04   ├ chunks/4bd1b696-52a6696c08e3276c.js  53.2 kB
+#12 73.04   ├ chunks/684-48b530704b40c9f7.js       45.9 kB
+#12 73.04   └ other shared chunks (total)          1.89 kB
+#12 73.04 
+#12 73.04 
+#12 73.04 ○  (Static)   prerendered as static content
+#12 73.04 ƒ  (Dynamic)  server-rendered on demand
+#12 73.04 
+#12 DONE 73.2s
+
+#13 [stage-1 3/4] COPY --from=builder /app ./
+#13 DONE 14.4s
+
+#14 [stage-1 4/4] RUN npm install --production
+#14 1.793 npm warn config production Use `--omit=dev` instead.
+#14 17.61 
+#14 17.61 up to date, audited 38 packages in 16s
+#14 17.61 
+#14 17.61 8 packages are looking for funding
+#14 17.61   run `npm fund` for details
+#14 17.61 
+#14 17.61 found 0 vulnerabilities
+#14 17.61 npm notice
+#14 17.61 npm notice New major version of npm available! 10.8.2 -> 11.4.2
+#14 17.61 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+#14 17.61 npm notice To update run: npm install -g npm@11.4.2
+#14 17.61 npm notice
+#14 DONE 17.7s
+
+#15 exporting to image
+#15 exporting layers
+#15 exporting layers 14.2s done
+#15 writing image sha256:559c6f83b879d87bba338ee8b1432f785ede4c6695f1f17ffb67c9746a5d1df2 0.0s done
+#15 naming to docker.io/tuanasanh/my-app-frontend-image:1.0.4 0.0s done
+#15 DONE 14.3s
+WARNING: current commit information was not captured by the build: failed to read current commit information with git rev-parse --is-inside-work-tree
+[Pipeline] echo
+Image tuanasanh/my-app-frontend-image:1.0.4 built successfully
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Image to Docker Hub)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Pushing to Docker Hub...
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PASS
+[Pipeline] {
+[Pipeline] sh
+Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_PASS]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
++ echo ****
++ docker login -u tuanasanh --password-stdin
+
+WARNING! Your credentials are stored unencrypted in '/root/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
++ docker push tuanasanh/my-app-frontend-image:1.0.4
+The push refers to repository [docker.io/tuanasanh/my-app-frontend-image]
+be1c2dd2be13: Preparing
+431f9e75b56f: Preparing
+162106e99642: Preparing
+82140d9a70a7: Preparing
+f3b40b0cdb1c: Preparing
+0b1f26057bd0: Preparing
+08000c18d16d: Preparing
+08000c18d16d: Waiting
+0b1f26057bd0: Waiting
+162106e99642: Layer already exists
+82140d9a70a7: Layer already exists
+f3b40b0cdb1c: Layer already exists
+0b1f26057bd0: Layer already exists
+08000c18d16d: Layer already exists
+be1c2dd2be13: Pushed
+431f9e75b56f: Pushed
+1.0.4: digest: sha256:ae63b4d54976ef9e6f3cce078aaa48dd5066972b23de88584dea73aaa926dfb9 size: 1786
++ docker logout
+Removing login credentials for https://index.docker.io/v1/
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+Successfully pushed Docker image: tuanasanh/my-app-frontend-image:1.0.4
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Clone Deploy Repo)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Cloning deploy repo...
+[Pipeline] sh
++ rm -rf cloned-deploy-repo
++ mkdir -p cloned-deploy-repo
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/my-app-cicd-frontend/cloned-deploy-repo
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $GIT_PASS
+[Pipeline] {
+[Pipeline] sh
+Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [GIT_PASS]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
++ git clone https://ntacsharp:****@github.com/ntacsharp/my-app-deploy.git .
+Cloning into '.'...
++ git config user.email tuanasanh@gmail.com
++ git config user.name CI Jenkins
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] echo
+Deploy repo cloned into ./cloned-deploy-repo
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Update Frontend Image Tag in Deploy Repo)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Updating frontend image tag in values.yaml
+[Pipeline] fileExists
+[Pipeline] sh
++ cat cloned-deploy-repo/values.yaml
++ grep -A5 frontend
+frontend:
+  image:
+    repository: tuanasanh/my-app-frontend-image
+    tag: "v1.0.3"
+  replicaCount: 2
+  service:
+    type: NodePort
+    port: 3000
+[Pipeline] sh
++ sed -i /frontend:/,/^[^ ]/s/\(tag:\s*\)".*"/\1"1.0.4"/ cloned-deploy-repo/values.yaml
+[Pipeline] sh
++ cat cloned-deploy-repo/values.yaml
++ grep -A5 frontend
+frontend:
+  image:
+    repository: tuanasanh/my-app-frontend-image
+    tag: "1.0.4"
+  replicaCount: 2
+  service:
+    type: NodePort
+    port: 3000
+[Pipeline] echo
+Updated tag to 1.0.4 in values.yaml
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Commit & Push Updated values.yaml)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Committing and pushing updated values.yaml...
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/my-app-cicd-frontend/cloned-deploy-repo
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $GIT_PASSWORD
+[Pipeline] {
+[Pipeline] sh
+Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [GIT_PASSWORD]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
++ git config user.email tuanasanh@gmail.com
++ git config user.name CI Jenkins
++ git add values.yaml
++ git diff --cached --quiet
++ git commit -m Update backend image tag to 1.0.4
+[master c602df3] Update backend image tag to 1.0.4
+ 1 file changed, 1 insertion(+), 1 deletion(-)
++ git push https://ntacsharp:****@github.com/ntacsharp/my-app-deploy.git HEAD:master
+To https://github.com/ntacsharp/my-app-deploy.git
+   27a90cf..c602df3  HEAD -> master
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] echo
+Pushed (or skipped) updated values.yaml to deploy repo
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Cleaning up Docker resources and Jenkins workspace...
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ docker rmi tuanasanh/my-app-frontend-image:1.0.4
+Untagged: tuanasanh/my-app-frontend-image:1.0.4
+Untagged: tuanasanh/my-app-frontend-image@sha256:ae63b4d54976ef9e6f3cce078aaa48dd5066972b23de88584dea73aaa926dfb9
+Deleted: sha256:dade0d6dcebf67c14e12052b06577a5ea4ac394941321769dbba52ddf12e724d
++ docker system prune -f
+Error response from daemon: a prune operation is already running
++ true
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] echo
+Cleaning Jenkins workspace...
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] echo
+✅ FRONTEND BUILD SUCCESS!
+[Pipeline] echo
+✅ Docker Image: tuanasanh/my-app-frontend-image:1.0.4
+[Pipeline] echo
+✅ Config repo updated with new image version
+[Pipeline] echo
+✅ Docker Hub: https://hub.docker.com/r/tuanasanh/my-app-frontend-image
+[Pipeline] echo
+🚀 Ready for deployment via ArgoCD!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Finished: SUCCESS

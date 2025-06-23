@@ -1,0 +1,9 @@
+- name: Deploy Kibana
+  hosts: localhost
+  tasks:
+    - name: Deploy Kibana
+      kubernetes.core.k8s:
+        kubeconfig: ~/.kube/config
+        state: present
+        src: ../roles/kibana/files/kibana.yaml
+        namespace: logging
