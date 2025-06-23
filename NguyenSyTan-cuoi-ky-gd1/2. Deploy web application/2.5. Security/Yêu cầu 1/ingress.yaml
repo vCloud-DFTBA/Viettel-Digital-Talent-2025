@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  namespace: app
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - nguyentan.cloud
+    secretName: webapp-tls
+  rules:
+  - host: nguyentan.cloud
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
+
+      - path: /api/user
+        pathType: Prefix
+        backend:
+          service:
+            name: user-service
+            port:
+              number: 8000
+
+      - path: /api/cars
+        pathType: Prefix
+        backend:
+          service:
+            name: car-service
+            port:
+              number: 8000

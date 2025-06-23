@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: my-webapp-monitor-0
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: car-service
+  namespaceSelector:
+    matchNames:
+      - app
+  endpoints:
+    - targetPort: 8000
+      interval: 10s
+      scheme: http
+      path: /metrics

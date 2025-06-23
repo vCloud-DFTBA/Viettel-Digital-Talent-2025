@@ -1,0 +1,181 @@
+---
+- name: Install EFK Stack to K8s cluster with an ansible playbook
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - community.kubernetes
+    - kubernetes.core
+
+  vars:
+    namespace: elastic-system
+
+  tasks:
+    - name: Create namespace for EFK stack
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: "{{ namespace }}"
+        state: present
+
+    - name: Install ECK Operator and its CRDs
+      kubernetes.core.k8s:
+        src: https://download.elastic.co/downloads/eck/3.0.0/operator.yaml
+        namespace: "{{ namespace }}"
+        state: present
+
+    - name: Install local-path-provisioner
+      kubernetes.core.k8s:
+        src: https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+        namespace: "{{ namespace }}"
+        state: present
+
+    - name: Deploy Elasticsearch
+      kubernetes.core.k8s:
+        src: elasticsearch.yml
+        namespace: "{{ namespace }}"
+        state: present
+
+    - name: Wait until Elasticsearch pod is Running
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Pod
+        namespace: elastic-system
+        label_selectors:
+          - "elasticsearch.k8s.elastic.co/cluster-name=elasticsearch"
+      register: elasticsearch_pods
+      until: >
+        elasticsearch_pods.resources | selectattr('status.phase', 'equalto', 'Running') | list | length > 0
+      retries: 20
+      delay: 15
+
+    - name: Get Elasticsearch Pod name
+      shell: >
+        kubectl get pod -n {{ namespace }} -l common.k8s.elastic.co/type=elasticsearch -o jsonpath="{.items[0].metadata.name}"
+      register: es_pod_name
+      changed_when: false
+      failed_when: es_pod_name.stdout == ""
+
+    - name: Check if Kibana token already exists
+      shell: |
+        kubectl exec -n elastic-system elasticsearch-es-default-0 \
+          -- /usr/share/elasticsearch/bin/elasticsearch-service-tokens list \
+          | grep -q "elastic/kibana/kibana-token"
+      register: kibana_token_check
+      ignore_errors: true
+
+    - name: Create Kibana service token if not exists
+      shell: |
+        kubectl exec -n elastic-system elasticsearch-es-default-0 \
+          -- /usr/share/elasticsearch/bin/elasticsearch-service-tokens create elastic/kibana kibana-token
+      when: kibana_token_check.rc != 0
+      register: kibana_token_raw
+
+    - name: Extract actual token value
+      set_fact:
+        kibana_token: "{{ kibana_token_raw.stdout | regex_replace('^SERVICE_TOKEN .* = ', '') }}"
+      when: kibana_token_check.rc != 0
+
+    - name: Deploy Kibana
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: kibana.k8s.elastic.co/v1
+          kind: Kibana
+          metadata:
+            name: kibana
+            namespace: "{{ namespace }}"
+          spec:
+            version: 8.16.1
+            count: 1
+            elasticsearchRef:
+              name: elasticsearch
+            config:
+              elasticsearch.hosts: ["http://elasticsearch-es-http:9200"]
+              elasticsearch.serviceAccountToken: "{{ kibana_token }}"
+            http:
+              service:
+                spec:
+                  type: NodePort
+            podTemplate:
+              spec:
+                containers:
+                  - name: kibana
+                    resources:
+                      requests:
+                        cpu: 100m
+                        memory: 256Mi
+      when: kibana_token is defined
+
+    - name: Wait until Kibana pod is Running
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Pod
+        namespace: elastic-system
+        label_selectors:
+          - "common.k8s.elastic.co/type=kibana"
+      register: kibana_pods
+      until: >
+        kibana_pods.resources | selectattr('status.phase', 'equalto', 'Running') | list | length > 0
+      retries: 20
+      delay: 15
+
+    - name: Get elastic user secret
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Secret
+        name: elasticsearch-es-elastic-user
+        namespace: elastic-system
+      register: elastic_user_secret
+
+    - name: Decode elastic user password
+      set_fact:
+        elastic_password: "{{ elastic_user_secret.resources[0].data.elastic | b64decode }}"
+      no_log: true
+
+    
+    - name: Create fluentd-writer role inside Elasticsearch pod
+      shell: |
+        kubectl exec -n elastic-system elasticsearch-es-default-0 -- \
+          curl -k -X PUT -u elastic:"{{ elastic_password }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "cluster": ["monitor"],
+            "indices": [
+              {
+                "names": ["fluentd-*", "logs-*", "logstash-*"],
+                "privileges": ["create_index", "write", "create", "auto_configure", "view_index_metadata"]
+              }
+            ]
+          }' \
+          http://localhost:9200/_security/role/fluentd-writer
+      register: fluentd_role_response
+      no_log: true
+
+    - name: Create fluentd_user via curl inside Elasticsearch pod
+      shell: |
+        kubectl exec -n elastic-system elasticsearch-es-default-0 \
+          -- curl -X POST -u elastic:"{{ elastic_password }}" \
+          -H "Content-Type: application/json" \
+          -d '{"password":"password","roles":["fluentd-writer"],"full_name":"Fluentd Log Ingestor"}' \
+          http://localhost:9200/_security/user/fluentd_user
+      register: fluentd_user_response
+      no_log: true
+    
+    - name: Deploy Fluentd DaemonSet
+      kubernetes.core.k8s:
+        src: fluentd.yml
+        namespace: kube-system
+        state: present
+    
+    - name: Wait until Fluentd pods are Running
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Pod
+        namespace: kube-system
+        label_selectors:
+          - "k8s-app=fluentd-logging"
+      register: fluentd_pods
+      until: >
+        fluentd_pods.resources | selectattr('status.phase', 'equalto', 'Running') | list | length > 0
+      retries: 20
+      delay: 15
