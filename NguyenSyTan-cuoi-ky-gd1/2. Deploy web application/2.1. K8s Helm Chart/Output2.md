@@ -1,7 +1,7 @@
 # Kết quả yêu cầu 2
 #### Yêu cầu 2:
 - Viết hoặc tìm mẫu Helm Chart cho app bất kỳ, để vào 1 folder riêng trong repo app
-- Tạo Repo Config cho app trên, trong repo này chứa các file values.yaml với nội dung của cá file values.yaml là các config cần thiết để chạy ứng dụng 
+- Tạo Repo Config cho app trên, trong repo này chứa các file values.yaml với nội dung của các file values.yaml là các config cần thiết để chạy ứng dụng 
 trên k8s bằng Helm Chart  
 #### Output 2:
 - Các Helm Chart sử dụng để triển khai app lên K8S Cluster  
