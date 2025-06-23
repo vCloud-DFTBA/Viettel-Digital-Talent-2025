@@ -1,0 +1,30 @@
+---
+- name: Deploy Elasticsearch and Kibana via Docker Compose
+  hosts: all
+  become: true
+
+  vars:
+    elk_install_dir: /opt/elk
+  tasks:
+    - name: Install Docker and Docker Compose
+      apt:
+        name: [docker.io, docker-compose]
+        state: present
+        update_cache: true
+
+    - name: Ensure ELK directory exists
+      file:
+        path: '{{ elk_install_dir }}'
+        state: directory
+        mode: '0755'
+
+    - name: Write docker-compose.yml to target
+      copy:
+        dest: '{{ elk_install_dir }}/docker-compose.yml'
+        src: ./compose.yaml
+        mode: '0644'
+
+    - name: Start Elasticsearch and Kibana with Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: '{{ elk_install_dir }}'

@@ -1,0 +1,402 @@
+Started by GitHub push by theLemonday
+Checking out git https://github.com/theLemonday/demo-app into /var/jenkins_home/workspace/ci-pipeline@script/0473236b3d7e4e35b1969821678fb212b726d824b33a4e5b1559655727e98270 to read Jenkinsfile
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/ci-pipeline@script/0473236b3d7e4e35b1969821678fb212b726d824b33a4e5b1559655727e98270/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/theLemonday/demo-app # timeout=10
+Fetching upstream changes from https://github.com/theLemonday/demo-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/theLemonday/demo-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 2b70613d46f06643d113be7157cd5e215bb3863e (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2b70613d46f06643d113be7157cd5e215bb3863e # timeout=10
+Commit message: "fix wrong manifest"
+ > git rev-list --no-walk c3e2496946d0d71c71c88667d839ca0cfef0362e # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes devops-tools/ci-pipeline-23-z6tz7-9xt0l-5r7x0
+[PodInfo] devops-tools/ci-pipeline-23-z6tz7-9xt0l-5r7x0
+	Container [jnlp] waiting [ContainerCreating] No message
+	Container [kaniko] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [kaniko jnlp]
+[PodInfo] devops-tools/ci-pipeline-23-z6tz7-9xt0l-5r7x0
+	Container [jnlp] waiting [ContainerCreating] No message
+	Container [kaniko] waiting [ContainerCreating] No message
+	Pod [Pending][ContainersNotReady] containers with unready status: [kaniko jnlp]
+Agent ci-pipeline-23-z6tz7-9xt0l-5r7x0 is provisioned from template ci-pipeline_23-z6tz7-9xt0l
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    kubernetes.jenkins.io/last-refresh: "1750590060131"
+    buildUrl: "http://jenkins-service.devops-tools.svc.cluster.local:8080/job/ci-pipeline/23/"
+    runUrl: "job/ci-pipeline/23/"
+  labels:
+    jenkins: "slave"
+    jenkins/label-digest: "5eb400a1e770beb49a5812726fabbb14b058e915"
+    jenkins/label: "ci-pipeline_23-z6tz7"
+    kubernetes.jenkins.io/controller: "tp___jenkins-service_devops-tools_svc_cluster_local_8080x"
+  name: "ci-pipeline-23-z6tz7-9xt0l-5r7x0"
+  namespace: "devops-tools"
+spec:
+  containers:
+  - args:
+    - "9999999"
+    command:
+    - "sleep"
+    image: "gcr.io/kaniko-project/executor:debug"
+    imagePullPolicy: "Always"
+    name: "kaniko"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+    - mountPath: "/kaniko/.docker/"
+      name: "docker-config"
+  - env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "REMOTING_OPTS"
+      value: "-noReconnectAfter 1d"
+    - name: "JENKINS_AGENT_NAME"
+      value: "ci-pipeline-23-z6tz7-9xt0l-5r7x0"
+    - name: "JENKINS_NAME"
+      value: "ci-pipeline-23-z6tz7-9xt0l-5r7x0"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins-service.devops-tools.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:3309.v27b_9314fd1a_4-1"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    kubernetes.io/os: "linux"
+  restartPolicy: "Never"
+  volumes:
+  - name: "docker-config"
+    secret:
+      items:
+      - key: ".dockerconfigjson"
+        path: "config.json"
+      secretName: "dockercred"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on ci-pipeline-23-z6tz7-9xt0l-5r7x0 in /home/jenkins/agent/workspace/ci-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/theLemonday/demo-app
+ > git init /home/jenkins/agent/workspace/ci-pipeline # timeout=10
+Fetching upstream changes from https://github.com/theLemonday/demo-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/theLemonday/demo-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 2b70613d46f06643d113be7157cd5e215bb3863e (refs/remotes/origin/main)
+Commit message: "fix wrong manifest"
+[Pipeline] }
+[Pipeline] // stage
+ > git config remote.origin.url https://github.com/theLemonday/demo-app # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2b70613d46f06643d113be7157cd5e215bb3863e # timeout=10
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout code)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Checking out source code
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Fetching changes from the remote Git repository
+Checking out Revision 2b70613d46f06643d113be7157cd5e215bb3863e (refs/remotes/origin/main)
+Commit message: "fix wrong manifest"
+[Pipeline] echo
+Checkout completed
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build & Push Docker Image (with Kaniko))
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+ > git rev-parse --resolve-git-dir /home/jenkins/agent/workspace/ci-pipeline/.git # timeout=10
+ > git config remote.origin.url https://github.com/theLemonday/demo-app # timeout=10
+Fetching upstream changes from https://github.com/theLemonday/demo-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/theLemonday/demo-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2b70613d46f06643d113be7157cd5e215bb3863e # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b main 2b70613d46f06643d113be7157cd5e215bb3863e # timeout=10
++ git rev-parse HEAD
+[Pipeline] echo
+Building todo-frontend:2b70613d
+[Pipeline] container
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Use kaniko to build image)
+[Pipeline] sh
++ pwd
++ pwd
++ /kaniko/executor --cleanup --context /home/jenkins/agent/workspace/ci-pipeline/frontend --dockerfile /home/jenkins/agent/workspace/ci-pipeline/frontend/Dockerfile --destination lemonday/todo-frontend:2b70613d
+[36mINFO[0m[0002] Resolved base name node:20-alpine to builder 
+[36mINFO[0m[0002] Retrieving image manifest node:20-alpine     
+[36mINFO[0m[0002] Retrieving image node:20-alpine from registry index.docker.io 
+[36mINFO[0m[0005] Retrieving image manifest nginx:alpine       
+[36mINFO[0m[0005] Retrieving image nginx:alpine from registry index.docker.io 
+[36mINFO[0m[0007] Built cross stage deps: map[0:[/app/dist]]   
+[36mINFO[0m[0007] Retrieving image manifest node:20-alpine     
+[36mINFO[0m[0007] Returning cached image manifest              
+[36mINFO[0m[0007] Executing 0 build triggers                   
+[36mINFO[0m[0007] Building stage 'node:20-alpine' [idx: '0', base-idx: '-1'] 
+[36mINFO[0m[0007] Unpacking rootfs as cmd COPY package*.json . requires it. 
+[36mINFO[0m[0013] WORKDIR /app                                 
+[36mINFO[0m[0013] Cmd: workdir                                 
+[36mINFO[0m[0013] Changed working directory to /app            
+[36mINFO[0m[0013] Creating directory /app with uid -1 and gid -1 
+[36mINFO[0m[0013] Taking snapshot of files...                  
+[36mINFO[0m[0013] Resolving srcs [package*.json]...            
+[36mINFO[0m[0013] COPY package*.json .                         
+[36mINFO[0m[0013] Resolving srcs [package*.json]...            
+[36mINFO[0m[0013] Taking snapshot of files...                  
+[36mINFO[0m[0013] RUN npm install                              
+[36mINFO[0m[0013] Initializing snapshotter ...                 
+[36mINFO[0m[0013] Taking snapshot of full filesystem...        
+[36mINFO[0m[0013] Cmd: /bin/sh                                 
+[36mINFO[0m[0013] Args: [-c npm install]                       
+[36mINFO[0m[0013] Running: [/bin/sh -c npm install]            
+
+added 191 packages, and audited 192 packages in 4s
+
+48 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.4.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+npm notice To update run: npm install -g npm@11.4.2
+npm notice
+[36mINFO[0m[0017] Taking snapshot of full filesystem...        
+[36mINFO[0m[0019] ARG VITE_API_URL                             
+[36mINFO[0m[0019] ENV VITE_API_URL=$VITE_API_URL               
+[36mINFO[0m[0019] COPY . .                                     
+[36mINFO[0m[0019] Taking snapshot of files...                  
+[36mINFO[0m[0019] RUN npm run build                            
+[36mINFO[0m[0019] Cmd: /bin/sh                                 
+[36mINFO[0m[0019] Args: [-c npm run build]                     
+[36mINFO[0m[0019] Running: [/bin/sh -c npm run build]          
+
+> client@0.0.0 build
+> tsc -b && vite build
+
+vite v6.3.5 building for production...
+transforming...
+✓ 30 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.56 kB │ gzip:  0.36 kB
+dist/assets/index-D8b4DHJx.css    1.39 kB │ gzip:  0.71 kB
+dist/assets/index-Gp70LoHE.js   188.80 kB │ gzip: 59.62 kB
+✓ built in 1.15s
+[36mINFO[0m[0022] Taking snapshot of full filesystem...        
+[36mINFO[0m[0023] Saving file app/dist for later use           
+[36mINFO[0m[0023] Deleting filesystem...                       
+[36mINFO[0m[0023] Retrieving image manifest nginx:alpine       
+[36mINFO[0m[0023] Returning cached image manifest              
+[36mINFO[0m[0023] Executing 0 build triggers                   
+[36mINFO[0m[0023] Building stage 'nginx:alpine' [idx: '1', base-idx: '-1'] 
+[36mINFO[0m[0023] Unpacking rootfs as cmd COPY --from=builder /app/dist /usr/share/nginx/html requires it. 
+[36mINFO[0m[0028] COPY --from=builder /app/dist /usr/share/nginx/html 
+[36mINFO[0m[0028] Taking snapshot of files...                  
+[36mINFO[0m[0028] EXPOSE 80                                    
+[36mINFO[0m[0028] Cmd: EXPOSE                                  
+[36mINFO[0m[0028] Adding exposed port: 80/tcp                  
+[36mINFO[0m[0028] CMD ["nginx", "-g", "daemon off;"]           
+[36mINFO[0m[0028] Deleting filesystem...                       
+[36mINFO[0m[0028] Pushing image to lemonday/todo-frontend:2b70613d 
+[36mINFO[0m[0036] Pushed index.docker.io/lemonday/todo-frontend@sha256:ffe247ea9ca1456a3802532a1b9aed00e510222248b35142873c5c03f0d4d7d5 
++ rm -rf /kaniko/0 /kaniko/1109410954 /kaniko/1646954907 /kaniko/2306276099 /kaniko/4008509818 /kaniko/4151552117 /kaniko/51198162
++ rm -rf /kaniko/Dockerfile
++ mkdir -p /workspace
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] echo
+Finished building todo-frontend:2b70613d
+[Pipeline] echo
+Building todo-backend:2b70613d
+[Pipeline] container
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Use kaniko to build image)
+[Pipeline] sh
++ pwd
++ pwd
++ /kaniko/executor --cleanup --context /home/jenkins/agent/workspace/ci-pipeline/backend --dockerfile /home/jenkins/agent/workspace/ci-pipeline/backend/Dockerfile --destination lemonday/todo-backend:2b70613d
+[36mINFO[0m[0002] Resolved base name golang:1.24-alpine to builder 
+[36mINFO[0m[0002] Retrieving image manifest golang:1.24-alpine 
+[36mINFO[0m[0002] Retrieving image golang:1.24-alpine from registry index.docker.io 
+[36mINFO[0m[0005] Retrieving image manifest alpine:latest      
+[36mINFO[0m[0005] Retrieving image alpine:latest from registry index.docker.io 
+[36mINFO[0m[0007] Built cross stage deps: map[0:[/app/server]] 
+[36mINFO[0m[0007] Retrieving image manifest golang:1.24-alpine 
+[36mINFO[0m[0007] Returning cached image manifest              
+[36mINFO[0m[0007] Executing 0 build triggers                   
+[36mINFO[0m[0007] Building stage 'golang:1.24-alpine' [idx: '0', base-idx: '-1'] 
+[36mINFO[0m[0007] Unpacking rootfs as cmd COPY go.mod go.sum ./ requires it. 
+[36mINFO[0m[0017] WORKDIR /app                                 
+[36mINFO[0m[0017] Cmd: workdir                                 
+[36mINFO[0m[0017] Changed working directory to /app            
+[36mINFO[0m[0017] Creating directory /app with uid -1 and gid -1 
+[36mINFO[0m[0017] Taking snapshot of files...                  
+[36mINFO[0m[0017] COPY go.mod go.sum ./                        
+[36mINFO[0m[0017] Taking snapshot of files...                  
+[36mINFO[0m[0017] RUN go mod download                          
+[36mINFO[0m[0017] Initializing snapshotter ...                 
+[36mINFO[0m[0017] Taking snapshot of full filesystem...        
+[36mINFO[0m[0018] Cmd: /bin/sh                                 
+[36mINFO[0m[0018] Args: [-c go mod download]                   
+[36mINFO[0m[0018] Running: [/bin/sh -c go mod download]        
+[36mINFO[0m[0020] Taking snapshot of full filesystem...        
+[36mINFO[0m[0021] COPY . .                                     
+[36mINFO[0m[0021] Taking snapshot of files...                  
+[36mINFO[0m[0021] RUN go build -o server                       
+[36mINFO[0m[0021] Cmd: /bin/sh                                 
+[36mINFO[0m[0021] Args: [-c go build -o server]                
+[36mINFO[0m[0021] Running: [/bin/sh -c go build -o server]     
+[36mINFO[0m[0038] Taking snapshot of full filesystem...        
+[36mINFO[0m[0040] Saving file app/server for later use         
+[36mINFO[0m[0040] Deleting filesystem...                       
+[36mINFO[0m[0040] Retrieving image manifest alpine:latest      
+[36mINFO[0m[0040] Returning cached image manifest              
+[36mINFO[0m[0040] Executing 0 build triggers                   
+[36mINFO[0m[0040] Building stage 'alpine:latest' [idx: '1', base-idx: '-1'] 
+[36mINFO[0m[0040] Unpacking rootfs as cmd COPY --from=builder /app/server . requires it. 
+[36mINFO[0m[0042] WORKDIR /root/                               
+[36mINFO[0m[0042] Cmd: workdir                                 
+[36mINFO[0m[0042] Changed working directory to /root/          
+[36mINFO[0m[0042] No files changed in this command, skipping snapshotting. 
+[36mINFO[0m[0042] COPY --from=builder /app/server .            
+[36mINFO[0m[0042] Taking snapshot of files...                  
+[36mINFO[0m[0042] EXPOSE 8080                                  
+[36mINFO[0m[0042] Cmd: EXPOSE                                  
+[36mINFO[0m[0042] Adding exposed port: 8080/tcp                
+[36mINFO[0m[0042] CMD ["./server"]                             
+[36mINFO[0m[0042] Deleting filesystem...                       
+[36mINFO[0m[0042] Pushing image to lemonday/todo-backend:2b70613d 
+[36mINFO[0m[0056] Pushed index.docker.io/lemonday/todo-backend@sha256:b617f393f4799ce578e372674caf4ac7eb99771a1dfcdd1c16d5961d494ad841 
++ rm -rf /kaniko/0 /kaniko/1717095291 /kaniko/3066024649 /kaniko/3412636232 /kaniko/3566898981 /kaniko/4009317206 /kaniko/661816536 /kaniko/988763243
++ rm -rf /kaniko/Dockerfile
++ mkdir -p /workspace
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] echo
+Finished building todo-backend:2b70613d
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Update K8s config repo)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] echo
+Begin update config repo
+[Pipeline] withCredentials
+Masking supported pattern matches of $GIT_PASS
+[Pipeline] {
+[Pipeline] sh
+Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [GIT_PASS]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
++ git clone -b main https://theLemonday:****@github.com/theLemonday/demo-app-values config-repo
+Cloning into 'config-repo'...
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/ci-pipeline/config-repo
+[Pipeline] {
+[Pipeline] echo
+Update values.yaml
+[Pipeline] sh
++ sed -i s|frontendVersion: .*|frontendVersion: 2b70613d|g values.yaml
+[Pipeline] sh
++ sed -i s|backendVersion: .*|backendVersion: 2b70613d|g values.yaml
+[Pipeline] sh
++ git config user.email jenkins@example.com
+[Pipeline] sh
++ git config user.name Jenkins CI
+[Pipeline] sh
++ git add values.yaml
+[Pipeline] sh
++ git commit -m ci: Cập nhật image tag lên 2b70613d
+[main 4de953c] ci: Cập nhật image tag lên 2b70613d
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[Pipeline] sh
++ git push origin main
+To https://github.com/theLemonday/demo-app-values
+   d9e5c28..4de953c  main -> main
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Pipeline đã kết thúc.
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Finished: SUCCESS
