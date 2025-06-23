@@ -1,3 +1,5 @@
+demo*/
+kubespray
 tls.*
 justfile
 .env
