@@ -1,0 +1,43 @@
+- name: Deploy Prometheus on master1
+  hosts: prometheus
+  become: true
+
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Ensure Docker service is started
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+
+    - name: Ensure Prometheus config directory exists
+      file:
+        path: /opt/prometheus
+        state: directory
+        owner: "{{ ansible_user }}"
+        mode: 0755
+
+    - name: Copy Prometheus configuration file
+      copy:
+        src: files/prometheus.yml
+        dest: /opt/prometheus/prometheus.yml
+        owner: "{{ ansible_user }}"
+        mode: 0644
+
+    - name: Remove old Prometheus container if exists
+      shell: |
+        docker rm -f prometheus || true
+
+    - name: Run Prometheus container using shell
+      shell: |
+        docker run -d --name prometheus \
+          --network host \
+          -p 9090:9090 \
+          -v /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
+          prom/prometheus

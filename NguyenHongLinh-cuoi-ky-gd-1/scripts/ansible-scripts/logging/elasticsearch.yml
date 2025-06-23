@@ -1,0 +1,45 @@
+- name: Install and start Elasticsearch
+  hosts: elasticsearch_server
+  become: yes
+  tasks:
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - openjdk-11-jdk
+        state: present
+        update_cache: yes
+
+    - name: Add Elasticsearch GPG key
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: Add Elasticsearch APT repository
+      apt_repository:
+        repo: 'deb https://artifacts.elastic.co/packages/7.x/apt stable main'
+        state: present
+        filename: 'elastic-7.x'
+
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install Elasticsearch
+      apt:
+        name: elasticsearch
+        state: present
+
+    - name: Enable and start Elasticsearch service
+      systemd:
+        name: elasticsearch
+        enabled: true
+        state: started
+
+    - name: Wait for Elasticsearch to be up (port 9200)
+      wait_for:
+        host: 127.0.0.1
+        port: 9200
+        delay: 5
+        timeout: 30
