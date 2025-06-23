@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd   # phải đúng namespace đã cài ArgoCD
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/chuitrai/my_app_config.git
+    targetRevision: HEAD       # hoặc tag như "v1.0.0"
+    path: .                    # nếu Chart.yaml ở thư mục gốc
+    helm:
+      releaseName: my-app      # đặt tên release rõ ràng
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-final-project-ns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true     # Optional: tránh re-apply toàn bộ mỗi lần sync

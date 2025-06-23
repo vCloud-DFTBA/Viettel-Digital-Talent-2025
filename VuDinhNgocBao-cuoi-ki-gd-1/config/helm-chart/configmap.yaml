@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  # Các biến môi trường cho backend
+  DB_HOST: {{ .Release.Name }}-database # Tên service của database
+  POSTGRES_DB: {{ .Values.database.dbName }}
+  POSTGRES_USER: {{ .Values.database.username }}
+
+  # Nội dung của file init.sql
+  init.sql: |-
+    CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255),
+        birthday VARCHAR(255),
+        school VARCHAR(255)
+    );
+    COPY users(name, birthday, school)
+    FROM '/docker-entrypoint-initdb.d/Danhsach.csv'
+    WITH (FORMAT csv, HEADER true);
+---
+# ConfigMap để chứa file CSV
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-csv-data
+binaryData:
+  # Dán nội dung của file Danhsach.csv đã được mã hóa base64 vào đây
+  # Cách làm: chạy `cat Danhsach.csv | base64` trong terminal và dán kết quả
+  Danhsach.csv: |
+    Ik5ndXnhu4VuIMSQxINuZyBRdcOibiIsIjExLzA1LzIwMDQiLCLEkGHMo2kgaG/Mo2MgQ8O0bmcgbmdow6rMoyAoVUVUKSINCiJUcuG7i25oIFZpbmggVHXhuqVuIMSQ4bqhdCIsIjA1LzEwLzIwMDMiLCJI4buNYyB2aeG7h24gQ8O0bmcgbmdo4buHIELGsHUgY2jDrW5oIFZp4buFbiB0aMO0bmcgLSBDxqEgc+G7nyBwaMOtYSBC4bqvYyINCiJOZ8O0IFh1w6JuIEjDsmEiLCIyNy8wNy8yMDA0IiwiSOG7jWMgdmnhu4duIEPDtG5nIG5naOG7hyBCxrB1IGNow61uaCBWaeG7hW4gdGjDtG5nIC0gQ8ahIHPhu58gcGjDrWEgQuG6r2MiDQoiQsO5aSDEkOG7qWMgSMO5bmcgIiwiMzEvMDcvMjAwNCIsIsSQ4bqhaSBo4buNYyBCw6FjaCBLaG9hIEjDoCBO4buZaSAoSFVTVCkiDQoiTmd1eeG7hW4gVHXhuqVuIEFuaCIsIjI1LzAxLzIwMDMiLCLEkOG6oWkgaOG7jWMgQsOhY2ggS2hvYSBIw6AgTuG7mWkgKEhVU1QpIg0KIkzGsMahbmcgTmjhuq10IEjDoG8iLCIwOS8wNy8yMDAzIiwixJBhzKNpIGhvzKNjIEPDtG5nIG5naMOqzKMgKFVFVCkiDQoiTmd1eeG7hW4gxJDhu6ljIEFuaCIsIjIzLzAxLzIwMDMiLCJI4buNYyB2aeG7h24gQ8O0bmcgbmdo4buHIELGsHUgY2jDrW5oIFZp4buFbiB0aMO0bmcgLSBDxqEgc+G7nyBwaMOtYSBC4bqvYyINCiLEkGluaCBUcsaw4budbmcgTMOjbSIsIjIzLzAyLzIwMDEiLCLEkOG6oWkgaOG7jWMgdOG7lW5nIGjhu6NwIElUTU8iDQoiTmd1eeG7hW4gxJDEg25nIELhuqNvIEzDom0iLCIxNy8wOC8yMDA0IiwixJDhuqFpIGjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lpIChIVVNUKSINCiJQaOG6oW0gTmfhu41jIEjhuqNpIETGsMahbmciLCIyMC8wMy8yMDA1IiwixJBhzKNpIGhvzKNjIEPDtG5nIG5naMOqzKMgKFVFVCkiDQoiTmd1eeG7hW4gTWluaCBRdcOibiIsIjA1LzAxLzIwMDQiLCLEkOG6oWkgaOG7jWMgQsOhY2ggS2hvYSBIw6AgTuG7mWkgKEhVU1QpIg0KIk5ndXnhu4VuIFPhu7kgVMOibiIsIjA3LzA3LzIwMDQiLCLEkGHMo2kgaG/Mo2MgQ8O0bmcgbmdow6rMoyAoVUVUKSINCiJNYWkgWHXDom4gRHV5IFF1YW5nIiwiMDQvMDcvMjAwMyIsIsSQ4bqhaSBo4buNYyBCw6FjaCBLaG9hIEjDoCBO4buZaSAoSFVTVCkiDQoiTMOqIFThuqVuIFBow6F0IiwiMTUvMTIvMjAwNCIsIsSQSCBN4bufIFRwLkhDTSINCiJOZ3V54buFbiBRdWFuZyBOaW5oIiwiMjQvMDQvMjAwNCIsIsSQYcyjaSBob8yjYyBDw7RuZyBuZ2jDqsyjIChVRVQpIg0KIk5ndXnhu4VuIFRydW5nIFbGsMahbmciLCIwMy8xMC8yMDAzIiwixJDhuqFpIGjhu41jIELDoWNoIEtob2EgLSDEkEhRRyBUUEhDTSAoSENNVVQpIg0KIk5ndXnhu4VuIFBoxrDhu5tjIE5nxrDhu6FuZyBMb25nIiwiMTgvMTAvMjAwNSIsIsSQYcyjaSBob8yjYyBDw7RuZyBuZ2jDqsyjIChVRVQpIg0KIk5ndXnhu4VuIFbEg24gRMawxqFuZyIsIjMwLzEwLzIwMDMiLCLEkGHMo2kgaG/Mo2MgQ8O0bmcgbmdow6rMoyAoVUVUKSINCiJMw6ogTWluaCBIb8OgbmciLCIxNy8wNS8yMDA0IiwixJDhuqFpIGjhu41jIEtob2EgaOG7jWMgdOG7sSBuaGnDqm4gLSDEkEhRRyBUUEhDTSAoSENNVVMpIg0KIk5ndXnhu4VuIMSQ4bupYyBUaOG7i25oIiwiMTAvMDkvMjAwMSIsIsSQ4bqhaSBo4buNYyBUaOG7p3kgTOG7o2kiDQoiSG/DoG5nIE1pbmggVGjhuq9uZyIsIjA5LzA2LzE5OTkiLCLEkOG6oWkgaOG7jWMgdOG7lW5nIGjhu6NwIElUTU8iDQoiVsWpIMSQw6xuaCBOZ+G7jWMgQuG6o28iLCIyOS8wMS8yMDA1IiwixJDhuqFpIGjhu41jIEtob2EgaOG7jWMgdOG7sSBuaGnDqm4gLSDEkEhRRyBUUEhDTSAoSENNVVMpIg0KIk5ndXnhu4VuIEjhu5NuZyBMxKluaCIsIjA4LzEyLzIwMDMiLCLEkGHMo2kgaG/Mo2MgQ8O0bmcgbmdow6rMoyAoVUVUKSINCg==

@@ -1,0 +1,65 @@
+# file: deploy_efk.yml
+- name: Deploy EFK Stack as Docker Containers
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Create a dedicated network for EFK
+      community.docker.docker_network:
+        name: efk-net
+        state: present
+
+    - name: Run Elasticsearch container
+      community.docker.docker_container:
+        name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+        state: started
+        restart_policy: always
+        ports:
+          - "9200:9200"
+        env:
+          discovery.type: "single-node"
+        networks:
+          - name: efk-net
+
+    # --- TASK MỚI: CHỜ ELASTICSEARCH SẴN SÀNG ---
+    - name: Wait for Elasticsearch to be healthy
+      uri:
+        url: http://localhost:9200/_cluster/health
+        status_code: 200
+      register: es_health
+      # Thử lại 30 lần, mỗi lần cách nhau 10 giây (tổng cộng 5 phút)
+      until: es_health.status == 200 and (es_health.json.status == "yellow" or es_health.json.status == "green")
+      retries: 30
+      delay: 10
+      
+    - name: Copy Fluentd configuration
+      copy:
+        src: ./fluent.conf
+        dest: /tmp/fluent.conf
+
+    - name: Run Fluentd container
+      community.docker.docker_container:
+        name: fluentd
+        image: fluent/fluentd-kubernetes-daemonset:v1.16-debian-elasticsearch7-1
+        state: started
+        restart_policy: always
+        ports:
+          - "24224:24224"
+          - "24224:24224/udp"
+        networks:
+          - name: efk-net
+
+    - name: Run Kibana container
+      community.docker.docker_container:
+        name: kibana
+        image: docker.elastic.co/kibana/kibana:7.17.9
+        state: started
+        restart_policy: always
+        ports:
+          - "5601:5601"
+        env:
+          ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+        networks:
+          - name: efk-net
+        # --- ĐÃ XÓA DÒNG 'depends_on' ---
