@@ -274,4 +274,6 @@ List of system users.
 backend service. It sends 15 requests, the first 5 requests are all POST
 requests, the next 10 requests are random between POST and GET method.
 
-![](assets/rate-limit-test.png)
+Run rate limit test. ![](assets/ratelimit-test.png)
+
+Rate limit logs from backend. ![](assets/ratelimit-backend.png)
