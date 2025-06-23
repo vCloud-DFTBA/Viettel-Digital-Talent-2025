@@ -269,7 +269,7 @@ Gọi API `GET api/students` thành công với `HTTP_STATUS_200_OK`
 ![](images/admin_GET.png)
 Gọi API `POST api/students` thành công với `HTTP_STATUS_201_CREATED`
 ![](images/admin_POST.png)
-Tương tự với `PUT và DELETE`
+Tương tự với `PUT và DELETE`<br>
 PUT em đang để trả về là `HTTP_STATUS_200_OK`
 ![](images/admin_PUT.png)
 DELETE trả về `HTTP_STATUS_204_NO_CONTENT`
