@@ -7,9 +7,8 @@ Sử dụng 1 trong số các giải pháp để rate limit cho Endpoint của A
 
 ## Giải pháp đề xuất
 
-Có hai giải pháp được đưa ra:
-1. **Rate limit ở HAProxy**
-2. **Rate limit ở Ingress Controller**
+Giải pháp được đưa ra: **Rate limit ở HAProxy**
+
 
 ## 1. Rate Limit ở HAProxy
 
@@ -151,4 +150,3 @@ Giải pháp rate limiting sử dụng HAProxy đã được triển khai thành
 
 Giải pháp này phù hợp cho môi trường production để bảo vệ API khỏi các cuộc tấn công DDOS hoặc việc sử dụng tài nguyên quá mức.
 
-## 2. Rate limit ở ingress controller
