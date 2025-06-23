@@ -57,7 +57,7 @@ root@ansible:~/logging# tree
 
 - **elasticsearch-deployment.yaml**:
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -112,7 +112,6 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: es-pvc
-
 ```
 
 ## 5. Triển khai Kibana
@@ -285,7 +284,7 @@ spec:
 master1 ansible_host=192.168.93.132 ansible_user=duongnv
 ```
 
-- Sử dụng playbook `logging.yml` và module `kubernetes.core.k8s`, sequence:
+- Sử dụng playbook `playbook.yaml` và module `kubernetes.core.k8s`, sequence:
 
 ```yaml
 ---

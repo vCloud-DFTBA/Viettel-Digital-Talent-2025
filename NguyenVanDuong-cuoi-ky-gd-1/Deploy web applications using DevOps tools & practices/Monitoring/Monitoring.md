@@ -20,7 +20,7 @@
 npm install prom-client express-prom-bundle
 ```
 
-- Thêm code sau vào file be.js trong repo Source code
+- Thêm code sau vào file `be.js` trong repo Source code
 
 ```js
 // --- PROMETHEUS METRICS ---
