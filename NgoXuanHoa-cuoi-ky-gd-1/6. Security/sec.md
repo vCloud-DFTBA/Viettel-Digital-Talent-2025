@@ -285,7 +285,7 @@ Chi tiết response khi gửi JWT không hợp lệ
 # Yêu cầu 3
 Sử dụng 1 trong số các giải pháp để ratelimit cho Endpoint của api Service, sao cho nếu có  quá 10 request trong 1 phút gửi đến Endpoint của api service thì các request sau đó bị trả về HTTP Response 409
 # Output
-[File tài liệu](/outputs/limit.md)
+[File tài liệu](outputs/limit.md)
 #### Hình ảnh status 200 trước 10 request
 ![](images/api_before.png)
 Hình ảnh trên kibana
