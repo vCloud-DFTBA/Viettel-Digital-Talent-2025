@@ -123,12 +123,12 @@ echo "Log saved to: $LOG_FILE"
 **File thực thi lệnh test rate limit:** [Script.sh](Logs/ratelimitwithHAProxy.sh)
 
 **Hình ảnh khi test rate limit:**
-![Rate limit test result](image.png)
+![Rate limit test result](images/image.png)
 
 **File logs khi thực hiện curl:** [Log rate limit with HAProxy](Logs/rate_test_20250623_103856.txt)
 
 **Hình ảnh thống kê ở HAProxy**
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 ### Phân tích kết quả
 
 Từ kết quả kiểm thử có thể thấy:
@@ -158,11 +158,11 @@ Rate limiting ở backend được triển khai dựa trên Token Bucket Algorit
 
 **Bước 1: Thêm thư viện Bucket4j**
 
-![Dependency Configuration](image-2.png)
+![Dependency Configuration](images/image-2.png)
 
 **Bước 2: Tạo Rate Limiting Filter**
 
-![Filter Implementation](image-3.png)
+![Filter Implementation](images/image-3.png)
 [File Code](https://github.com/Maybetuandat/vdt_2025_backend/blob/main/src/main/java/com/example/demo/filter/SimpleRateLimitFilter.java)
 
 **Bước 3: Kiểm tra kết quả**
@@ -198,7 +198,7 @@ echo "Log saved to: $LOG_FILE"
 
 **Kết quả thực thi với curl:**
 
-![Test Results](image-4.png)
+![Test Results](images/image-4.png)
 
 **File log chi tiết:** [rate_test_20250623_195421.txt](./Logs/rate_test_20250623_195421.txt)
 
