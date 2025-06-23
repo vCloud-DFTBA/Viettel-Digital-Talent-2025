@@ -132,5 +132,3 @@ Ngoài ra còn có log được tạo từ cụm K8s.
 
 - Kibana cung cấp giao diện trực quan để truy vấn và visualize log data. 
 
-## Tổng thể
-EFK đã đáp ứng đầy đủ yêu cầu về logging cho hệ thống microservices, cung cấp khả năng observability toàn diện và reliable cho production environment.
