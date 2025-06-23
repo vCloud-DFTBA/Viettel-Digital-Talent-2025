@@ -134,11 +134,11 @@ Do đăng nhập bằng role USER nên không có quyền thực thi các method
 
 **POST request:**
 
-![POST request với USER token](images/image-13.png)
+![POST request với USER token](images/image-14.png)
 
 **DELETE request:**
 
-![DELETE request với USER token](images/image-14.png)
+![DELETE request với USER token](images/image-13.png)
 
 **Kết quả:** Trả về status code 403 Forbidden cho tất cả các method này
 
