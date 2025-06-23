@@ -1,0 +1,16 @@
+mongo:
+  image: mongo:4.4
+  port: 27017
+  volume: mongo-data
+  initDir: /docker-entrypoint-initdb.d
+
+backend:
+  image:
+    repository: docker.io/nguyenminhquanzp01/3-tier-app
+    tag: "15"
+  port: 5000
+
+frontend:
+  image: nginx:1.22.0-alpine
+  port: 80
+  hostPort: 8080

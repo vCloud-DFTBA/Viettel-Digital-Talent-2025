@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nguyenminhquanzp01/3-tier-app-cicd.git   # Track repo config
+    targetRevision: main
+    path: my-app              # ← Thư mục chứa Helm chart
+    helm:
+      valueFiles:
+        - values.yaml         # ← File values.yaml trong cùng thư mục với chart
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default        # ← namespace bạn muốn deploy
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
