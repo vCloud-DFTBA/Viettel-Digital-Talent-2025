@@ -1,0 +1,12 @@
+- name: Run Fluentd container
+  docker_container:
+    name: fluentd
+    image: fluent/fluentd:v1.14-1
+    state: started
+    restart_policy: always
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - /var/log:/fluentd/log
+      - ./fluent.conf:/fluentd/etc/fluent.conf

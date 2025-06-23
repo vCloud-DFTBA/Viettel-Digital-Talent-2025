@@ -1,0 +1,31 @@
+- name: Deploy Prometheus with Docker
+  hosts: prometheus
+  become: true
+
+  tasks:
+    - name: Install Docker (Ubuntu)
+      apt:
+        name: docker.io
+        state: present
+        update_cache: true
+
+    - name: Create Prometheus config directory
+      file:
+        path: /opt/prometheus
+        state: directory
+
+    - name: Copy prometheus.yml config
+      copy:
+        src: prometheus.yml
+        dest: /opt/prometheus/prometheus.yml
+
+    - name: Run Prometheus container
+      docker_container:
+        name: prometheus
+        image: prom/prometheus
+        state: started
+        restart_policy: unless-stopped
+        ports:
+          - "9090:9090"
+        volumes:
+          - /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml

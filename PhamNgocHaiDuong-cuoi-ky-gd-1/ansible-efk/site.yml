@@ -1,0 +1,6 @@
+- hosts: efk
+  become: yes
+  roles:
+    - elasticsearch
+    - kibana
+    - fluentd
