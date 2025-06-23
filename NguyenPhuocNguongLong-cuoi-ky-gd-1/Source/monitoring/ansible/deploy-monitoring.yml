@@ -1,0 +1,33 @@
+- name: Triển khai hệ thống giám sát Prometheus + Grafana
+  hosts: monitoring
+  become: yes
+
+  tasks:
+    - name: Cài rsync (nếu cần)
+      apt:
+        name: rsync
+        state: present
+        update_cache: yes
+
+    - name: Cài Docker và Docker Compose
+      apt:
+        name: ['docker.io', 'docker-compose']
+        state: present
+
+    - name: Tạo thư mục monitoring trên remote
+      file:
+        path: /opt/monitoring
+        state: directory
+
+    - name: Copy toàn bộ thư mục monitoring lên remote
+      copy:
+        src: ../
+        dest: /opt/monitoring/
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Khởi động monitoring stack với Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: /opt/monitoring/

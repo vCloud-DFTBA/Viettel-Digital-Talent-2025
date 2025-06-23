@@ -1,0 +1,2 @@
+[monitoring]
+192.168.40.138 ansible_user=worker1 ansible_ssh_pass=1
