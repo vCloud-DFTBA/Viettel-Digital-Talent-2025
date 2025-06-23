@@ -36,12 +36,12 @@ ERROR_COUNTER = Counter(
 - File playbook phải được đặt cùng folder với file [inventory.ini](./setup_files/ansible-playbook/inventory.ini)
 
 ### Cấu trúc playbook:
-Playbook thực hiện việc cài Prometheus vào cluster gồm các bước chính sau:
+Playbook thực hiện việc cài Prometheus vào cluster từ Helm gồm các bước chính sau:
 - Tạo namespace `monitoring`
 - Tải thư viện `kubernetes` từ pip để có thể sử dụng các module của kubernetes trong playbook
 - Tải repo `prometheus-community` từ Helm
 - Cài đặt Prometheus server bằng Helm Chart từ release `prometheus-community/kube-prometheus-stack` vào namespace `monitoring`
-- Chờ các pods của Prometheus ở trạng thái `Running` và kết thúc playbook
+- Chờ các pods của Prometheus ở trạng thái `Running` và kết thúc playbook   
 Kết quả khi chạy xong playbook:
 ![](../../images/prometheus-playbook.png)
 
