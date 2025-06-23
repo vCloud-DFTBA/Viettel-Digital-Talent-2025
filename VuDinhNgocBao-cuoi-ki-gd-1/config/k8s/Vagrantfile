@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+K8S_VERSION = "1.28.2-1.1" 
+MASTER_IP = "192.168.56.10"
+WORKER_IP_PREFIX = "192.168.56"
+NUM_WORKERS = 1 
+NODE_CPUS = 3
+NODE_MEMORY = 6144 # 6GB RAM cho mỗi node 
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.box_check_update = false
+  config.vm.boot_timeout = 1200
+
+
+  # Cấu hình Master Node
+  config.vm.define "k8s-master" do |master|
+    master.vm.network "private_network", ip: MASTER_IP
+    master.vm.hostname = "k8s-master"
+    master.vm.provider "virtualbox" do |vb|
+      vb.name = "k8s-master"
+      vb.memory = NODE_MEMORY
+      vb.cpus = NODE_CPUS
+    end
+    master.vm.provision "shell", path: "setup-master.sh", args: [K8S_VERSION, MASTER_IP]
+  end
+
+  # Cấu hình Worker Nodes
+  (1..NUM_WORKERS).each do |i|
+    worker_ip = "#{WORKER_IP_PREFIX}.#{10 + i}"
+    
+    config.vm.define "k8s-worker-#{i}" do |worker|
+      worker.vm.network "private_network", ip: worker_ip
+      worker.vm.hostname = "k8s-worker-#{i}"
+      worker.vm.provider "virtualbox" do |vb|
+        vb.name = "k8s-worker-#{i}"
+        vb.memory = NODE_MEMORY
+        vb.cpus = NODE_CPUS
+      end
+      
+      worker.vm.provision "shell", path: "setup-worker.sh", args: [K8S_VERSION, worker_ip]
+    end
+  end
+
+end

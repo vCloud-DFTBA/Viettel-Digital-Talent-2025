@@ -1,0 +1,8 @@
+# file: prometheus.yml
+global:
+  scrape_interval: 30s
+
+scrape_configs:
+  - job_name: 'go-backend-app'
+    static_configs:
+      - targets: ['192.168.56.10:31763'] 

@@ -1,0 +1,38 @@
+# Default values for my-app-chart.
+
+backend: 
+  replicaCount: 1
+  image:
+    repository: chuitrai2901/my-go-backend
+    pullPolicy: IfNotPresent
+    tag: "v1.0.0" 
+  resources:
+    
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+frontend:
+  replicaCount: 1
+  image:
+    repository: chuitrai2901/my-react-frontend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  service:
+    type: NodePort
+    port: 80
+
+database:
+  image:
+    repository: postgres
+    tag: "14-alpine"
+  
+  # Cấu hình sẽ được ghi đè bởi repo config
+  dbName: "mydb"
+  username: "admin"
+  password: "123"
+
+  # Cấu hình lưu trữ
+  storageClass: "local-path"
+  storageSize: "1Gi"
+  tag: "v1.0.0"
