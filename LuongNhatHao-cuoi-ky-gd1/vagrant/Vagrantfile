@@ -1,0 +1,15 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "prometheus" do |vm|
+    vm.vm.box = "bento/ubuntu-24.04"
+    vm.vm.hostname = "prometheus"
+    vm.vm.network "private_network", ip: "172.18.8.103"
+
+    vm.vm.provider :libvirt do |libvirt|
+      libvirt.qemu_use_session = false
+      libvirt.memory = 2048
+      libvirt.cpus = 2
+      libvirt.qemu_use_agent = false
+    end
+  end
+end
+
