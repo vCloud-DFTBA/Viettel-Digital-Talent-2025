@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Shiner-2/CRUD-app.git
+    targetRevision: master
+    path: .
+    helm:
+      valueFiles:
+        - values.yaml
+      releaseName: my-app   # ✅ Thêm dòng này để dùng 1 release duy nhất
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: microservice
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
