@@ -1,0 +1,45 @@
+- name: Cài đặt và khởi động Elasticsearch
+  hosts: elasticsearch_server
+  become: yes
+  tasks:
+
+    - name: Cài đặt các gói phụ thuộc cần thiết
+      apt:
+        name:
+          - apt-transport-https
+          - openjdk-11-jdk
+        state: present
+        update_cache: yes
+
+    - name: Thêm khóa GPG của Elasticsearch
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: Thêm kho APT của Elasticsearch
+      apt_repository:
+        repo: 'deb https://artifacts.elastic.co/packages/7.x/apt stable main'
+        state: present
+        filename: 'elastic-7.x'
+
+    - name: Cập nhật bộ nhớ đệm APT
+      apt:
+        update_cache: yes
+
+    - name: Cài đặt Elasticsearch
+      apt:
+        name: elasticsearch
+        state: present
+
+    - name: Bật và khởi động dịch vụ Elasticsearch
+      systemd:
+        name: elasticsearch
+        enabled: true
+        state: started
+
+    - name: Chờ Elasticsearch hoạt động (trên cổng 9200)
+      wait_for:
+        host: 127.0.0.1
+        port: 9200
+        delay: 5
+        timeout: 30
