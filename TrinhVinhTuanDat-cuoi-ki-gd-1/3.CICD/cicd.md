@@ -221,7 +221,7 @@ Trạng thái cuối cùng của backend application sau khi hoàn thành luồn
 
 # 2. Cấu hình CI/CD cho Frontend
 
-
+[Jenkinsfile](https://github.com/Maybetuandat/vdt_2025_frontend/blob/main/Jenkinsfile)
 
 ## Trạng thái ban đầu
 
