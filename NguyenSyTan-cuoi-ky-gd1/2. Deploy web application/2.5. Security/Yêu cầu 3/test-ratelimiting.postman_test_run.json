@@ -1,0 +1,109 @@
+{
+	"id": "4856b59d-7124-46c5-ad21-91f2fe6f6e24",
+	"name": "test-ratelimiting",
+	"timestamp": "2025-06-22T17:03:33.989Z",
+	"collection_id": "43658224-3648d4ab-3c37-47bc-b2d0-99fbacb939a5",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 10,
+	"delay": 4000,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-06-22T17:02:31.367Z",
+	"totalFail": 5,
+	"results": [
+		{
+			"id": "b6fdaf4b-9733-42dd-aecc-85cca20fd671",
+			"name": "list cars",
+			"url": "https://nguyentan.cloud/api/cars/list",
+			"time": 5,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status code is 200": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 10,
+					"fail": 5
+				}
+			},
+			"times": [
+				149,
+				82,
+				109,
+				77,
+				90,
+				101,
+				89,
+				89,
+				75,
+				73,
+				11,
+				13,
+				8,
+				7,
+				5
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": false
+				},
+				{
+					"Status code is 200": false
+				},
+				{
+					"Status code is 200": false
+				},
+				{
+					"Status code is 200": false
+				},
+				{
+					"Status code is 200": false
+				}
+			]
+		}
+	],
+	"count": 15,
+	"totalTime": 978,
+	"collection": {
+		"requests": [
+			{
+				"id": "b6fdaf4b-9733-42dd-aecc-85cca20fd671",
+				"method": "GET"
+			}
+		]
+	}
+}

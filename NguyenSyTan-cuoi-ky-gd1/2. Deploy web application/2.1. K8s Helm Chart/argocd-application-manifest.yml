@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: microserviceapp
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/nguyentankdb17/microservice_app-frontend
+      targetRevision: HEAD
+      path: helm-chart
+      helm:
+        valueFiles:
+          - $valuesrepo/frontend_values.yaml
+
+    - repoURL: https://github.com/nguyentankdb17/microservice_app-api
+      targetRevision: HEAD
+      path: helm-chart
+      helm:
+        valueFiles:
+          - $valuesrepo/user_service_values.yaml
+
+    - repoURL: https://github.com/nguyentankdb17/microservice_app-api
+      targetRevision: HEAD
+      path: helm-chart
+      helm:
+        valueFiles:
+          - $valuesrepo/car_service_values.yaml
+      
+    - repoURL: https://github.com/nguyentankdb17/microservice_app-config
+      targetRevision: HEAD
+      ref: valuesrepo
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
