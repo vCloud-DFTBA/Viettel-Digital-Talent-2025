@@ -163,6 +163,7 @@ Rate limiting ở backend được triển khai dựa trên Token Bucket Algorit
 **Bước 2: Tạo Rate Limiting Filter**
 
 ![Filter Implementation](image-3.png)
+[File Code](https://github.com/Maybetuandat/vdt_2025_backend/blob/main/src/main/java/com/example/demo/filter/SimpleRateLimitFilter.java)
 
 **Bước 3: Kiểm tra kết quả**
 
