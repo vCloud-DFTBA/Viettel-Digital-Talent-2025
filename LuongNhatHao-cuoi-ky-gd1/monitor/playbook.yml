@@ -1,0 +1,78 @@
+---
+- name: Deploy Prometheus using Docker
+  hosts: prometheus_targets
+  become: true
+
+  vars:
+    prometheus_config_local: ./prometheus.yml
+    prometheus_config_remote: /opt/prometheus/prometheus.yml
+    prometheus_container_name: prometheus
+    docker_apt_key_url: https://download.docker.com/linux/ubuntu/gpg
+    docker_repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }}
+      stable
+
+  tasks:
+    - name: Ensure required packages are installed
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: true
+
+    - name: Add Docker’s official GPG key
+      apt_key:
+        url: '{{ docker_apt_key_url }}'
+        state: present
+
+    - name: Add Docker APT repository
+      apt_repository:
+        repo: '{{ docker_repo }}'
+        state: present
+        filename: docker
+
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install Docker packages
+      apt:
+        name: [docker-ce]
+        state: present
+
+    - name: Start Docker service
+      ansible.builtin.systemd_service:
+        name: docker
+        state: started
+
+    - name: Create Prometheus config directory
+      file:
+        path: '{{ prometheus_config_remote | dirname }}'
+        state: directory
+        mode: '0755'
+
+    - name: Copy prometheus.yml to remote server
+      copy:
+        src: '{{ prometheus_config_local }}'
+        dest: '{{ prometheus_config_remote }}'
+        mode: '0644'
+      notify: [Restart Prometheus container]
+
+    - name: Run Prometheus Docker container
+      ansible.builtin.docker_container:
+        name: '{{ prometheus_container_name }}'
+        image: prom/prometheus:latest
+        state: started
+        restart_policy: always
+        ports: [9090:9090]
+        volumes: ['{{ prometheus_config_remote }}:/etc/prometheus/prometheus.yml']
+
+  handlers:
+    - name: Restart Prometheus container
+      docker_container:
+        name: '{{ prometheus_container_name }}'
+        state: started
+        restart: true

@@ -1,0 +1,21 @@
+Vagrant.configure("2") do |config|
+  config.ssh.insert_key = false
+
+  config.vm.define "prometheus" do |vm|
+    vm.vm.box = "bento/ubuntu-24.04"
+    vm.vm.hostname = "prometheus"
+    vm.vm.network :private_network, :ip => "172.18.8.130", :libvirt__dhcp_enabled => false
+
+    vm.vm.provider :libvirt do |libvirt|
+      libvirt.nested = false
+      libvirt.cpu_mode = "host-model"
+
+      libvirt.qemu_use_session = false
+      libvirt.memory = 2048
+      libvirt.cpus = 2
+    end
+
+      vm.vm.synced_folder ".", "/vagrant", disabled: false, type: "rsync", rsync__args: ['--verbose', '--archive', '--delete', '-z'] , rsync__exclude: ['.git','venv']
+  end
+end
+

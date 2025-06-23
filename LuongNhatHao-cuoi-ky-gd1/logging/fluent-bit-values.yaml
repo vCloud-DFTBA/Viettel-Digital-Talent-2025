@@ -1,0 +1,63 @@
+---
+# logLevel: debug
+config:
+  customParsers: |
+    [PARSER]
+        Name        docker_strip
+        Format      regex
+        Regex       ^[^ ]+ [^ ]+ [^ ]+ (?<log>.*)
+        Time_Keep   On
+
+    [PARSER]
+        Name   go_backend_log
+        Format regex
+        Regex  ^(?<timestamp>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) "(?<method>[A-Z]+) (?<path>[^ ]+) (?<protocol>[^"]+)" from (?<client_ip>[0-9.]+):\d+ - (?<code>\d{3}) (?<size>\d+B) in (?<duration>[0-9.µs]+)
+        Time_Key timestamp
+        Time_Format %Y/%m/%d %H:%M:%S
+
+  inputs: |
+    [INPUT]
+        Name   tail
+        Path   /var/log/containers/*frontend*.log
+        Parser docker_strip
+        Tag    web-app.frontend
+
+    [INPUT]
+        Name   tail
+        Path   /var/log/containers/*backend*.log
+        Parser docker_strip
+        Tag    web-app.backend
+
+    [INPUT]
+        Name tail
+        Path /var/log/containers/*.log
+        multiline.parser docker, cri
+        Tag kube.*
+        Mem_Buf_Limit 5MB
+  outputs: |
+    [OUTPUT]
+        Name es
+        Match *
+        Host 172.18.8.131
+        Logstash_Format On
+        Retry_Limit False
+        Index         fluent-bit
+        Suppress_Type_Name On
+        Trace_Error       On
+
+    [OUTPUT]
+        Name   stdout
+        Match  web-app.*
+        Format json
+  filters: |-
+    [FILTER]
+        Name   parser
+        Match  web-app.frontend
+        Key_Name log
+        Parser nginx
+
+    [FILTER]
+        Name   parser
+        Match  web-app.backend
+        Key_Name log
+        Parser go_backend_log

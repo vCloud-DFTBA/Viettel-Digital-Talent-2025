@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fullstack-app
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fullstack-app
+  sources:
+    - repoURL: https://github.com/theLemonday/demo-app
+      path: helm
+      targetRevision: HEAD
+      helm:
+        valueFiles: [$values/values.yaml]
+    - repoURL: https://github.com/theLemonday/demo-app-values.git
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions: [CreateNamespace=true]
