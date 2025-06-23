@@ -5,7 +5,7 @@
 
 #### Output 1: 
 - File manifests sử dụng để triển khai ArgoCD lên K8S Cluster: 
-    - File manifest: [argocd-setup-manifest.yml](./argocd-application-manifest.yml)
+    - File manifest: [argocd-setup-manifest.yml](./argocd-setup-manifest.yml)
 - Ảnh chụp giao diện màn hình hệ thống ArgoCD khi truy cập qua trình duyệt trình duyệt 
 ![](../../images/argocd-dashboard.png)
 - File manifests sử dụng để triển khai Jenkins lên K8S Cluster:

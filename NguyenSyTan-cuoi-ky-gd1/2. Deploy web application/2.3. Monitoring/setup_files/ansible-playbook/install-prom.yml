@@ -1,0 +1,55 @@
+---
+- name: Install Prometheus using Helm in Kubernetes
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - community.kubernetes
+    - kubernetes.core
+
+  vars:
+    namespace: monitoring
+    release_name: prometheus
+    chart_name: prometheus-community/kube-prometheus-stack
+    chart_version: "27.20.1"
+    prometheus_repo: https://prometheus-community.github.io/helm-charts
+
+  tasks:
+    - name: install pre-requisites
+      pip:
+        name: kubernetes
+        
+    - name: Ensure Helm repo is added
+      community.kubernetes.helm_repository:
+        name: prometheus-community
+        repo_url: "{{ prometheus_repo }}"
+
+    - name: Create namespace if it doesn't exist
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: "{{ namespace }}"
+        state: present
+
+    - name: Install Prometheus via Helm
+      community.kubernetes.helm:
+        name: "{{ release_name }}"
+        chart_ref: "{{ chart_name }}"
+        chart_version: "{{ chart_version }}"
+        release_namespace: "{{ namespace }}"
+        create_namespace: false
+        update_repo_cache: true
+        state: present
+
+    - name: Wait until Prometheus pods are Running
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Pod
+        namespace: monitoring
+        label_selectors:
+          - "app.kubernetes.io/name=prometheus"
+          - "app.kubernetes.io/instance=prometheus-kube-prometheus-prometheus"
+      register: prometheus_pods
+      until: >
+          prometheus_pods.resources | selectattr('status.phase', 'equalto', 'Running') | list | length > 0
+      retries: 20
+      delay: 15

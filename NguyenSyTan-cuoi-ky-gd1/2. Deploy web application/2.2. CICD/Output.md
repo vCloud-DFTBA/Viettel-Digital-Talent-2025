@@ -1,3 +1,4 @@
+# Output cho yêu cầu về CI/CD
 #### Yêu cầu:
 - Viết 1 luồng CI/CD cho app, khi có thay đổi từ source code, 1 tag mới được tạo ra trên trên repo này thì luồng CI/CD tương ứng của repo đó 
 thực hiện các công việc sau: 
@@ -9,6 +10,7 @@ sau khi build xong lên Docker Hub
 #### Output: 
 - Các file setup công cụ của luồng CI/CD: [Tài liệu & file setup](SetupCICD.md)
 - Output log của luồng CI/CD khi tạo tag mới trên repo app 
+![](../../images/jenkins-checktag.png)
 - Show log chứng minh jenkin đã chạy đúng
 ![](../../images/jenkins-log.png) 
 - Jenkinsfile cấu hình các luồng:
@@ -23,11 +25,11 @@ sau khi build xong lên Docker Hub
     - App triển khai ArgoCD:
     ![](../../images/argocd.png)
 
-    - Diff khi argoCD phát hiện thay đổi ở config repo:
+    - Diff khi argoCD phát hiện thay đổi ở config repo (thay đổi ở đây là scale số replicas ở deployment frontend từ 1 lên 2):
     ![](../../images/argocd-diff.png)
 
 - Hình ảnh app trước khi sửa code và sau khi sửa code. 
-    - Trước khi sửa (chữ '**OUR PRODUCTS**') màu vàng:
-    ![](../../images/web-ver2.png)
-    - Sau khi sửa (chữ '**OUR PRODUCTS**') màu trắng:
-    ![](../../images/web-view-admin.png)
+    - Trước khi sửa code (số replicas của deployment frontend là 1):
+    ![](../../images/argocd.png)
+    - Sau khi sửa code (số replicas của deployment frontend được scale lên 2):
+    ![](../../images/argocd-synced.png)

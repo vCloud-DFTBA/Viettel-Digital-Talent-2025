@@ -10,7 +10,7 @@
     kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.3/deploy/static/provider/cloud/deploy.yaml
 
     ```
-- Để có thể cấu hình ingress với https, đầu tiên tạo một tên miền ảo với self-sign cert:
+- Để có thể cấu hình ingress với https, đầu tiên tạo một tên miền ảo `nguyentan.cloud` với self-sign cert:
     ```bash
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout tls.key -out tls.crt \
@@ -61,8 +61,9 @@
     ```
     sudo systemctl restart haproxy
     ```
-- Trên máy client để test, phải thêm hostname của domain ảo vào file `hosts` ở system, ip chính là ip của node HA
-- Trên máy client để test, import cert `tls.crt` để không bị lỗi do đây là self-signed cert
+- Cấu hình file manifest của ingress ([ingress.yaml](ingress.yaml)), chú ý hosts đúng với domain ảo được tạo, `ingressClassName` là `nginx` do sử dụng nginx làm ingress controller, các path tương ứng forward tới các service của webapp.
+- Trên máy client để test, phải thêm hostname của domain ảo vào file `hosts` ở system, ip chính là ip của node HA.
+- Trên máy client để test, import cert `tls.crt` để không bị lỗi do đây là self-signed cert.
 - Sau khi hoàn tất các bước, truy cập vào domain `https://nguyentan.cloud` sẽ ra được kết quả chính là web app:
 ![](../../../images/web-https.png)
 - Log của HAProxy cho thấy request được chuyển tiếp liên tục giữa các node, đảm bảo tính HA và vai trò của 1 LB:

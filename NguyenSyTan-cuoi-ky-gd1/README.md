@@ -6,7 +6,7 @@ Y/c 1:
 Hoặc 
 - Triển khai được Kubernetes thông qua công cụ kubeadm hoặc kubespray lên 1 master node VM + 1 worker node VM
 ### Output:
-- Tài liệu cài đặt (công cụ gì, các file config, …): [Tài liệu cài đặt](1.%20Setup%20Kubernetes/README.md) 
+- Tài liệu cài đặt (công cụ gì, các file config, …): [Tài liệu cài đặt](1.%20Setup%20Kubernetes/Setup.md) 
 - Ảnh chụp Log của các lệnh kiểm tra hệ thống như:  `kubectl get nodes - o wide`, `kubectl get pods -A - o wide`
 
 ![](images/k8s-installation.png) 
@@ -35,6 +35,7 @@ trên k8s bằng Helm Chart
 - Các file values.yaml trong config repo của app
 - Ảnh chụp giao diện màn hình hệ thống ArgoCD trên trình duyệt
 - Ảnh chụp giao diện màn hình trình duyệt khi truy cập vào Web URL, API URL   
+
 [Kết quả yêu cầu 2](./2.%20Deploy%20web%20application/2.1.%20K8s%20Helm%20Chart/Output2.md)
 
 ### CI/CD
@@ -53,18 +54,19 @@ sau khi build xong lên Docker Hub
 - Jenkinsfile cấu hình các luồng:
 - Ảnh luồng CI/CD chạy qua các stage trên giao diện Jenkins ( sử dụng Plugin Pipeline Stage View)
 - Hình ảnh app triển khai argoCD, hình ảnh diff khi argoCD phát hiện thay đổi ở config repo   
-[Kết quả yêu cầu](./2.%20Deploy%20web%20application/2.2.%20CICD/README.md)
+
+[Kết quả yêu cầu](./2.%20Deploy%20web%20application/2.2.%20CICD/Output.md)
 
 ### Monitoring
 #### Yêu cầu:
 - Expose metric của app ra 1 http path.
 - Sử dụng ansible playbooks để triển khai container Prometheus server. Sau đó cấu hình prometheus add target giám sát các metrics đã expose ở trên. 
 #### Output: 
-- Các file setup để triển khai Prometheus: [Tài liệu & file setup](/NguyenSyTan-cuoi-ky-gd1/2.%20Deploy%20web%20application/2.3.%20Monitoring/)
+- Các file setup để triển khai Prometheus
 - Hình ảnh khi truy cập vào Prometheus UI thông qua trình duyệt
-![](images/prometheus-dashboard.png) 
 - Hình ảnh danh sách target của App được giám sát bởi Prometheus
-![](images/prometheus.png)
+
+[Kết quả yêu cầu](./2.%20Deploy%20web%20application/2.3.%20Monitoring/Output.md)
 
 ### Logging
 #### Yêu cầu:
@@ -73,9 +75,9 @@ sau khi build xong lên Docker Hub
     - HTTP Method VD: (GET PUT POST…) 
     - Response Code: 302, 200, 202, 201… 
 #### Output: 
-- [Tài liệu & file setup](/NguyenSyTan-cuoi-ky-gd1/2.%20Deploy%20web%20application/2.4.%20Logging/README.md)
 - Hình ảnh chụp màn hình Kibana kết quả tìm kiếm log của các service theo url path 
-![](images/kibana-query.png)
+
+[Kết quả yêu cầu](./2.%20Deploy%20web%20application/2.4.%20Logging/Output.md)
 
 ### Security
 #### Yêu cầu 1:
@@ -87,7 +89,7 @@ sau khi build xong lên Docker Hub
 - File cấu hình ingress. 
 - Kết quả truy cập vào App từ trình duyệt thông qua giao thức https hoặc dùng curl.   
 
-[Kết quả yêu cầu 1](/NguyenSyTan-cuoi-ky-gd1/2.%20Deploy%20web%20application/2.5.%20Security/Yêu%20cầu%201/)
+[Kết quả yêu cầu 1](./2.%20Deploy%20web%20application/2.5.%20Security/Yêu%20cầu%201/Output.md)
 
 #### Yêu cầu 2: 
 - Đảm bảo 1 số URL của api service  khi truy cập phải có xác thực thông qua 1 trong số các phương thức cookie, basic auth, token auth, nếu không sẽ trả về HTTP response code 403. 
@@ -99,7 +101,7 @@ sau khi build xong lên Docker Hub
 - Kết quả HTTP Response khi curl hoặc dùng postman gọi vào các URL khi truyền thêm thông tin xác thực và khi không truyền thông tin xác thực 
 - Kết quả HTTP Response khi curl hoặc dùng postman vào các URL với các method GET/POST/DELETE  khi lần lượt dùng thông tin xác thực của các user có role là user và admin   
 
-[Kết quả output 2](/NguyenSyTan-cuoi-ky-gd1/2.%20Deploy%20web%20application/2.5.%20Security/Yêu%20cầu%202/)
+[Kết quả yêu cầu 2](./2.%20Deploy%20web%20application/2.5.%20Security/Yêu%20cầu%202/Output.md)
 
 #### Yêu cầu 3: 
 - Sử dụng 1 trong số các giải pháp để ratelimit cho Endpoint của api Service, sao cho nếu có  quá 10 request trong 1 phút gửi đến Endpoint của api service thì 
@@ -108,4 +110,4 @@ các request sau đó bị trả về HTTP Response 409
 - File tài liệu trình bày giải pháp 
 - File ghi lại kết quả thử nghiệm khi gọi quá 10 request trong 1 phút vào Endpoint của API Service.   
 
-[Kết quả yêu cầu 3](/NguyenSyTan-cuoi-ky-gd1/2.%20Deploy%20web%20application/2.5.%20Security/Yêu%20cầu%203/)
+[Kết quả yêu cầu 3](./2.%20Deploy%20web%20application/2.5.%20Security/Yêu%20cầu%203/Output.md)
