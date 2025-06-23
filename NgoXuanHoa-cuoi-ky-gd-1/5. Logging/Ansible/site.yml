@@ -1,0 +1,231 @@
+---
+- name: Deploy Elasticsearch and Kibana
+  hosts: elasticsearch
+  become: yes
+  tags: 
+    - elasticsearch
+    - elk
+  vars:
+    elasticsearch_version: "8.1.1"
+    kibana_version: "8.1.1"
+  tasks:
+    - name: Install Docker
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        state: present
+        update_cache: yes
+
+    - name: Start and enable Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    - name: Create elasticsearch directory
+      file:
+        path: /opt/elasticsearch
+        state: directory
+        mode: '0755'
+
+    - name: Copy docker-compose file for ELK stack
+      template:
+        src: docker-compose.yml.j2
+        dest: /opt/elasticsearch/docker-compose.yml
+        mode: '0644'
+
+    - name: Create .env file for elasticsearch
+      template:
+        src: env.j2
+        dest: /opt/elasticsearch/.env
+        mode: '0644'
+
+    - name: Start ELK stack
+      community.docker.docker_compose_v2:
+        project_src: /opt/elasticsearch
+        state: present
+
+- name: Deploy Fluentd DaemonSet to Kubernetes
+  hosts: k8s_master
+  become: no
+  tags:
+    - fluentd
+    - kubernetes
+  environment:
+    KUBECONFIG: /home/devops/.kube/config
+  tasks:
+    - name: Check if kubectl config exists
+      stat:
+        path: "{{ ansible_env.HOME }}/.kube/config"
+      register: kubeconfig_check
+
+    - name: Create .kube directory if not exists
+      file:
+        path: "{{ ansible_env.HOME }}/.kube"
+        state: directory
+        mode: '0755'
+      when: not kubeconfig_check.stat.exists
+
+    - name: Copy kubeconfig from /etc/kubernetes/admin.conf
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: "{{ ansible_env.HOME }}/.kube/config"
+        remote_src: yes
+        owner: "{{ ansible_user }}"
+        mode: '0600'
+      become: yes
+      when: not kubeconfig_check.stat.exists
+
+    - name: Test kubectl connectivity
+      shell: kubectl cluster-info
+      register: kubectl_test
+
+    - name: Display kubectl test result
+      debug:
+        var: kubectl_test
+
+    - name: Create fluentd namespace
+      shell: kubectl create namespace fluentd-system || kubectl get namespace fluentd-system
+
+    - name: Create temporary directory for kubernetes manifests
+      file:
+        path: "{{ ansible_env.HOME }}/fluentd-manifests"
+        state: directory
+        mode: '0755'
+
+    - name: Copy fluentd config
+      template:
+        src: fluentd-config.conf.j2
+        dest: "{{ ansible_env.HOME }}/fluentd-manifests/fluent.conf"
+        mode: '0644'
+
+    - name: Create fluentd configmap
+      shell: |
+        kubectl delete configmap fluentd-config -n fluentd-system 2>/dev/null || true
+        kubectl create configmap fluentd-config --from-file={{ ansible_env.HOME }}/fluentd-manifests/fluent.conf -n fluentd-system
+
+    - name: Create fluentd service account
+      shell: |
+        kubectl apply -f - <<EOF
+        apiVersion: v1
+        kind: ServiceAccount
+        metadata:
+          name: fluentd
+          namespace: fluentd-system
+        EOF
+
+    - name: Create cluster role for fluentd
+      shell: |
+        kubectl apply -f - <<EOF
+        apiVersion: rbac.authorization.k8s.io/v1
+        kind: ClusterRole
+        metadata:
+          name: fluentd
+        rules:
+        - apiGroups: [""]
+          resources: ["pods", "namespaces", "nodes", "events"]
+          verbs: ["get", "list", "watch"]
+        - apiGroups: ["apps"]
+          resources: ["replicasets", "deployments"]
+          verbs: ["get", "list", "watch"]
+        EOF
+
+    - name: Create cluster role binding for fluentd
+      shell: |
+        kubectl apply -f - <<EOF
+        apiVersion: rbac.authorization.k8s.io/v1
+        kind: ClusterRoleBinding
+        metadata:
+          name: fluentd
+        roleRef:
+          kind: ClusterRole
+          name: fluentd
+          apiGroup: rbac.authorization.k8s.io
+        subjects:
+        - kind: ServiceAccount
+          name: fluentd
+          namespace: fluentd-system
+        EOF
+
+    - name: Deploy fluentd daemonset
+      shell: |
+        kubectl apply -f - <<EOF
+        apiVersion: apps/v1
+        kind: DaemonSet
+        metadata:
+          name: fluentd
+          namespace: fluentd-system
+          labels:
+            k8s-app: fluentd-logging
+            version: v1
+        spec:
+          selector:
+            matchLabels:
+              k8s-app: fluentd-logging
+          template:
+            metadata:
+              labels:
+                k8s-app: fluentd-logging
+                version: v1
+            spec:
+              serviceAccount: fluentd
+              serviceAccountName: fluentd
+              tolerations:
+              - key: node-role.kubernetes.io/control-plane
+                effect: NoSchedule
+              - key: node-role.kubernetes.io/master
+                effect: NoSchedule
+              containers:
+              - name: fluentd
+                image: fluent/fluentd-kubernetes-daemonset:v1.16.2-debian-elasticsearch8-1.1
+                env:
+                - name: FLUENT_ELASTICSEARCH_HOST
+                  value: "192.168.122.89"
+                - name: FLUENT_ELASTICSEARCH_PORT
+                  value: "9200"
+                - name: FLUENT_ELASTICSEARCH_SCHEME
+                  value: "http"
+                - name: FLUENTD_SYSTEMD_CONF
+                  value: disable
+                - name: FLUENT_CONTAINER_TAIL_EXCLUDE_PATH
+                  value: /var/log/containers/fluent*
+                - name: FLUENT_ELASTICSEARCH_SSL_VERIFY
+                  value: "false"
+                resources:
+                  limits:
+                    memory: 512Mi
+                    cpu: 100m
+                  requests:
+                    cpu: 100m
+                    memory: 200Mi
+                volumeMounts:
+                - name: fluentd-config
+                  mountPath: /fluentd/etc
+                - name: varlog
+                  mountPath: /var/log
+                - name: varlibdockercontainers
+                  mountPath: /var/lib/docker/containers
+                  readOnly: true
+              volumes:
+              - name: fluentd-config
+                configMap:
+                  name: fluentd-config
+              - name: varlog
+                hostPath:
+                  path: /var/log
+              - name: varlibdockercontainers
+                hostPath:
+                  path: /var/lib/docker/containers
+        EOF
+
+    - name: Clean up temporary files
+      file:
+        path: "{{ ansible_env.HOME }}/fluentd-manifests"
+        state: absent 

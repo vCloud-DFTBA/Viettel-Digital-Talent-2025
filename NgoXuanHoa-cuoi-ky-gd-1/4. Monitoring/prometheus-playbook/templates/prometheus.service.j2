@@ -1,0 +1,22 @@
+[Unit]
+Description=Prometheus
+After=containerd.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/ctr task kill prometheus
+ExecStartPre=-/usr/bin/ctr container rm prometheus
+ExecStart=/usr/bin/ctr run --rm \
+  --mount type=bind,src={{ prometheus_config_dir }},dst=/etc/prometheus,options=rbind:ro \
+  --mount type=bind,src={{ prometheus_data_dir }},dst=/prometheus,options=rbind:rw \
+  --net-host \
+  {{ prometheus_image }} \
+  prometheus \
+  /bin/prometheus \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --storage.tsdb.path=/prometheus
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
