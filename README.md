@@ -94,9 +94,12 @@ Run the following commands to apply:
 kubectl apply -f argocd-frontend.yaml
 kubectl apply -f argocd-backend.yaml
 ```
+
 ![alt text](./k8s_helm_chart/argocd-apps.png)
+
 Screenshot when accessing web URL:
 ![alt text](./k8s_helm_chart/web-url.png)
+
 Screenshot when accessing api URL:
 ![alt text](./k8s_helm_chart/api-url.png)
 
