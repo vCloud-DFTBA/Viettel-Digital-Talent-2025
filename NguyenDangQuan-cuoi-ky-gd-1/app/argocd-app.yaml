@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: simple-microservice-dev
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/danquan/simple-app
+    targetRevision: HEAD
+    path: helm/simple-microservice
+    helm:
+      valueFiles:
+        - https://raw.githubusercontent.com/danquan/simple-app-config/main/prod/values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd-app
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-forwarder-config
+  namespace: kube-system
+data:
+  fluent.conf: |
+    <source>
+      @type tail
+      path /var/log/containers/backend-*.log
+      pos_file /fluentd/log/fluentd-ds.pos
+      tag kube.*
+      format cri
+      read_from_head true
+      emit_invalid_record_to_error true
+    </source>
+
+    <filter **>
+      @type grep
+      <regexp>
+        key message
+        pattern /^\{.*\}$/
+      </regexp>
+    </filter>
+
+    <filter **>
+      @type parser
+      key_name message
+      reserve_data true
+      remove_key_name_field false
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+    <match **>
+      @type forward
+      <server>
+        host 34.42.121.242
+        port 24224
+      </server>
+    </match>

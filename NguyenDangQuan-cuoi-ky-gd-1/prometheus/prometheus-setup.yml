@@ -1,0 +1,64 @@
+---
+- name: Setup Prometheus server in Docker
+  hosts: kube_control_plane
+  become: yes
+
+  vars:
+    prometheus_config_dir: /opt/prometheus
+    prometheus_data_dir: /opt/prometheus/data
+    prometheus_container_name: prometheus
+    prometheus_image: prom/prometheus:latest
+    prometheus_port: 9090
+
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure Prometheus config directory exists
+      file:
+        path: "{{ prometheus_config_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Ensure Prometheus data directory exists
+      file:
+        path: "{{ prometheus_data_dir }}"
+        state: directory
+
+    - name: Ensure data directory ownership for Prometheus (UID/GID 65534)
+      file:
+        path: "{{ prometheus_data_dir }}"
+        state: directory
+        owner: "65534"
+        group: "65534"
+        recurse: yes
+
+    - name: Copy Prometheus config file
+      copy:
+        src: files/prometheus.yml
+        dest: "{{ prometheus_config_dir }}/prometheus.yml"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Pull Prometheus Docker image
+      docker_image:
+        name: "{{ prometheus_image }}"
+        source: pull
+
+    - name: Run Prometheus container
+      docker_container:
+        name: "{{ prometheus_container_name }}"
+        image: "{{ prometheus_image }}"
+        state: started
+        restart_policy: always
+        ports:
+          - "{{ prometheus_port }}:9090"
+        volumes:
+          - "{{ prometheus_config_dir }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+          - "{{ prometheus_data_dir }}:/prometheus"
