@@ -185,6 +185,7 @@ ips are logs from backend (redicted by frontend, which is served by nginx).
 Create a virtual machine with [Vagrantfile](./security/haproxy/Vagrantfile).
 This machine has static ip: 172.18.8.1.132. Then install HAProxy package. Add
 the configuration to /etc/haproxy/haproxy.cfg file.
+
 ![](assets/haproxy-config.png)
 
 Add fullstack-app.com and worker.com to /etc/hosts.
