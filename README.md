@@ -60,9 +60,9 @@ kubectl get pods -A -o wide
 # Deploy web application using DevOps tools & practices
 ## 1. Deploy Jenkins on the k8s cluster
 Follow the official documentation: https://www.jenkins.io/doc/book/installing/kubernetes/\
-Manifest file for deploying Jenkins on the cluster: [jenkins-install.yaml](./jenkins-install.yaml)\
+Manifest file for deploying Jenkins on the cluster: [jenkins-install.yaml](./k8s_helm_chart/jenkins-install.yaml)\
 Jenkins is successfully deployed and exposed via NodePort 32000.
-![alt text](./jenkins-interface.png)
+![alt text](./k8s_helm_chart/jenkins-interface.png)
 ## 2. Deploy ArgoCD on the k8s cluster
 Official documentation for installing ArgoCD: https://argo-cd.readthedocs.io/en/stable/getting_started/\
 Install Argocd:
