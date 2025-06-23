@@ -1,0 +1,8 @@
+---
+- name: Deploy Prometheus container
+  hosts: localhost
+  become: true
+  collections:
+    - community.docker
+  roles:
+    - prometheus

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd  
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/ntacsharp/my-app-deploy.git
+    targetRevision: master
+    path: .                      
+    helm:
+      valueFiles:
+        - values.yaml            
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-app            
+
+  syncPolicy:
+    automated:
+      prune: true                
+      selfHeal: true             
+    syncOptions:
+      - CreateNamespace=true     

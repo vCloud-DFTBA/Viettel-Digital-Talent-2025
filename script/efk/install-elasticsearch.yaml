@@ -1,0 +1,61 @@
+- name: Install and start Elasticsearch
+  hosts: localhost
+  become: yes
+  tasks:
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - openjdk-11-jdk
+        state: present
+        update_cache: yes
+
+    - name: Add Elasticsearch GPG key
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: Add Elasticsearch APT repository
+      apt_repository:
+        repo: 'deb https://artifacts.elastic.co/packages/7.x/apt stable main'
+        state: present
+        filename: 'elastic-7.x'
+
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install Elasticsearch
+      apt:
+        name: elasticsearch
+        state: present
+
+    - name: Set Elasticsearch to listen on all interfaces
+      lineinfile:
+        path: /etc/elasticsearch/elasticsearch.yml
+        regexp: '^#?network.host:'
+        line: 'network.host: 0.0.0.0'
+        insertafter: '^#\s*network.host:'
+        backup: yes
+
+    - name: Set Elasticsearch to single node mode
+      lineinfile:
+        path: /etc/elasticsearch/elasticsearch.yml
+        regexp: '^#?discovery.type:'
+        line: 'discovery.type: single-node'
+        insertafter: '^#\s*discovery.type:'
+        backup: yes
+
+    - name: Ensure Elasticsearch is started and enabled
+      systemd:
+        name: elasticsearch
+        enabled: true
+        state: started
+
+    - name: Wait for Elasticsearch to be available on port 9200
+      wait_for:
+        host: "{{ ansible_host | default('127.0.0.1') }}"
+        port: 9200
+        delay: 5
+        timeout: 60
