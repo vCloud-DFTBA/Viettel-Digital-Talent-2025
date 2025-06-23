@@ -2,7 +2,7 @@
 - name: Deploy and Configure Prometheus Container
   hosts: localhost  # Chạy trên chính máy đang thực thi playbook
   connection: local
-  become: yes       # Cần quyền sudo để tương tác với Docker
+  become: yes       
 
   tasks:
     - name: Create directory for Prometheus configuration
@@ -13,7 +13,7 @@
 
     - name: Copy Prometheus configuration file
       copy:
-        src: ./prometheus.yml  # File bạn tạo ở giai đoạn 2
+        src: ./prometheus.yml  
         dest: /etc/prometheus/prometheus.yml
 
     - name: Ensure old prometheus container is removed
@@ -31,5 +31,4 @@
           # Expose cổng 9090 của container ra cổng 9090 của master node
           - "9090:9090"
         volumes:
-          # Mount file cấu hình vào bên trong container
           - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml

@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug # Dùng image debug có shell
+    image: gcr.io/kaniko-project/executor:debug 
     imagePullPolicy: Always
     command:
     - /busybox/cat # Giữ cho container chạy để Jenkins exec vào
@@ -18,7 +18,7 @@ spec:
   volumes:
     - name: docker-config
       secret:
-        secretName: your-dockerhub-secret # Tên secret docker-registry trong K8s
+        secretName: your-dockerhub-secret 
         items:
           - key: .dockerconfigjson
             path: config.json

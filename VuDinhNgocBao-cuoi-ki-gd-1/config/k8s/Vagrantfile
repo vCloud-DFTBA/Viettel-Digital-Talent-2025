@@ -1,9 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Sửa phiên bản này lại cho đúng với repository của Kubernetes. 
-# Thường là dạng X.Y.Z-00 hoặc X.Y.Z-1.1.
-# Hãy kiểm tra bằng `apt-cache policy kubeadm` bên trong VM nếu không chắc.
 K8S_VERSION = "1.28.2-1.1" 
 MASTER_IP = "192.168.56.10"
 WORKER_IP_PREFIX = "192.168.56"
@@ -27,13 +24,11 @@ Vagrant.configure("2") do |config|
       vb.memory = NODE_MEMORY
       vb.cpus = NODE_CPUS
     end
-    # Truyền cả phiên bản và IP cho master
     master.vm.provision "shell", path: "setup-master.sh", args: [K8S_VERSION, MASTER_IP]
   end
 
   # Cấu hình Worker Nodes
   (1..NUM_WORKERS).each do |i|
-    # Tính toán IP của worker hiện tại
     worker_ip = "#{WORKER_IP_PREFIX}.#{10 + i}"
     
     config.vm.define "k8s-worker-#{i}" do |worker|
@@ -45,8 +40,6 @@ Vagrant.configure("2") do |config|
         vb.cpus = NODE_CPUS
       end
       
-      # *** DÒNG SỬA QUAN TRỌNG NHẤT ***
-      # Truyền cả K8S_VERSION và worker_ip vào script của worker
       worker.vm.provision "shell", path: "setup-worker.sh", args: [K8S_VERSION, worker_ip]
     end
   end

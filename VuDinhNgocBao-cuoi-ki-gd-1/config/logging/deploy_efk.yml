@@ -22,13 +22,11 @@
         networks:
           - name: efk-net
 
-    # --- TASK MỚI: CHỜ ELASTICSEARCH SẴN SÀNG ---
     - name: Wait for Elasticsearch to be healthy
       uri:
         url: http://localhost:9200/_cluster/health
         status_code: 200
       register: es_health
-      # Thử lại 30 lần, mỗi lần cách nhau 10 giây (tổng cộng 5 phút)
       until: es_health.status == 200 and (es_health.json.status == "yellow" or es_health.json.status == "green")
       retries: 30
       delay: 10
@@ -62,4 +60,3 @@
           ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
         networks:
           - name: efk-net
-        # --- ĐÃ XÓA DÒNG 'depends_on' ---

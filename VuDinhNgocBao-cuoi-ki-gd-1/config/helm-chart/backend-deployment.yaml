@@ -13,13 +13,12 @@ spec:
     metadata:
       labels:
         app: backend
-      # --- THÊM ANNOTATIONS CHO PROMETHEUS ---
-      # Chỉ thị cho Prometheus rằng pod này cần được cào metrics
+      
       annotations:
         prometheus.io/scrape: 'true'
-        # Chỉ định đường dẫn chứa metrics
+     
         prometheus.io/path:   '/metrics'
-        # Chỉ định cổng chứa metrics
+    
         prometheus.io/port:   '8080'
     spec:
       containers:
@@ -31,16 +30,14 @@ spec:
           containerPort: 8080
           protocol: TCP
         
-        # --- THÊM PROBES ĐỂ KIỂM TRA SỨC KHỎE ---
-        # Liveness Probe: Kiểm tra xem container có còn "sống" không. Nếu thất bại, K8s sẽ restart container.
+     
         livenessProbe:
           httpGet:
-            path: /metrics # Dùng endpoint metrics để kiểm tra, nó nhẹ và luôn có sẵn
+            path: /metrics 
             port: http
-          initialDelaySeconds: 15 # Chờ 15s sau khi container khởi động mới bắt đầu kiểm tra
-          periodSeconds: 20       # Kiểm tra mỗi 20s
+          initialDelaySeconds: 15 
+          periodSeconds: 20       
 
-        # Readiness Probe: Kiểm tra xem container đã "sẵn sàng" nhận traffic chưa. Nếu thất bại, K8s sẽ tạm thời gỡ pod ra khỏi Service.
         readinessProbe:
           httpGet:
             path: /metrics
@@ -48,11 +45,9 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
 
-        # --- THÊM YÊU CẦU VÀ GIỚI HẠN TÀI NGUYÊN ---
         resources:
           {{- toYaml .Values.backend.resources | nindent 10 }}
 
-        # --- GIỮ NGUYÊN PHẦN ENVFROM ---
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-config
