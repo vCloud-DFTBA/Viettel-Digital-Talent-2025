@@ -1,0 +1,3 @@
+# Viettel-Digital-Talent-2025
+Em xin cảm ơn anh chị mentor trong giai đoạn 1 vừa qua. Nhờ có VDT mà em học đuợc rất nhiều kiến thức bổ ích từ ansible, k8s cho tới monitoring hay logging. Nếu không được tham gia VDT, em nghĩ mình sẽ rất khó để có thể hiểu và được thực hành vận dụng những kiến thức đó.
+Một lần nữa em xin cảm ơn anh chị, chúc anh chị luôn gặp may mắn, vui vẻ trong cuộc sống. Và em cũng rất mong có thể được đồng hành cùng anh chị trong gia đoạn 2 tiếp theo ạ.

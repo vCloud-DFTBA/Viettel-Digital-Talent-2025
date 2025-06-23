@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-deployment
+  namespace: ktpm
+spec:
+  replicas: {{ .Values.be.replicaCount }}
+  selector:
+    matchLabels:
+      app: be
+  template:
+    metadata:
+      labels:
+        app: be
+    spec:
+      containers:
+      - name: be-container
+        image: {{ .Values.be.image }}
+        env:
+          - name: POSTGRES_USER
+            value: {{ .Values.db.env.POSTGRES_USER }}
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.db.env.POSTGRES_PASSWORD }}
+          - name: POSTGRES_DB
+            value: {{ .Values.db.env.POSTGRES_DB }}
+          - name: DATABASE_URL
+            value: {{ .Values.be.env.DATABASE_URL }}
+          - name: SECRET_KEY
+            value: {{ .Values.be.env.SECRET_KEY }}
+          - name: ALGORITHM
+            value: {{ .Values.be.env.ALGORITHM }}
+          - name: ACCESS_TOKEN_EXPIRE_MINUTES
+            value: "{{ .Values.be.env.ACCESS_TOKEN_EXPIRE_MINUTES }}"
+        ports:
+        - containerPort: {{ .Values.be.service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: be-service
+  namespace: ktpm
+spec:
+  selector:
+    app: be
+  ports:
+  - port: {{ .Values.be.service.port }}
+    targetPort: {{ .Values.be.service.port }}
+    # nodePort: {{ .Values.be.service.nodePort }}
+  type: {{ .Values.be.service.type }}
+---
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: be-ingress
+  namespace: ktpm
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # nginx.ingress.kubernetes.io/auth-type: basic
+    # nginx.ingress.kubernetes.io/auth-secret: {{ .Values.ingress.authSecret }}
+    # nginx.ingress.kubernetes.io/auth-url: "http://auth-service.ktpm.svc.cluster.local:3000/auth"
+    # nginx.ingress.kubernetes.io/auth-signin: "false" 
+    # nginx.ingress.kubernetes.io/auth-realm: "Protected Backend"
+    # nginx.ingress.kubernetes.io/auth-response-headers: Authorization
+    # nginx.ingress.kubernetes.io/auth-snippet: |
+    #   if ($http_authorization = "") {
+    #     return 403;
+    #   }
+    meta.helm.sh/release-name: my-app
+    meta.helm.sh/release-namespace: ktpm
+spec:
+  ingressClassName: {{ .Values.ingress.className | quote }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.beHost }}
+      secretName: {{ .Values.ingress.tlsSecret }}
+  rules:
+    - host: {{ .Values.ingress.beHost }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: be-service
+                port:
+                  number: {{ .Values.be.service.port }}
+{{- end }}

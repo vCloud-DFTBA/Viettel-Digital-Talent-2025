@@ -1,0 +1,12 @@
+server:
+  service:
+    type: NodePort
+    nodePort: 30080
+    servicePortHttp: 80
+    servicePortHttps: 443
+  ingress:
+    enabled: false
+
+configs:
+  params:
+    server.insecure: true

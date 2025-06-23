@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+  namespace: kube-logging
+  labels:
+    app: fluentd
+data:
+  fluent.conf: |
+    <source>
+      @type tail
+      path /var/log/containers/*.log
+      pos_file /var/log/fluentd-containers.log.pos
+      tag kubernetes.*
+      format json
+      read_from_head true
+    </source>
+
+    <filter kubernetes.**>
+      @type kubernetes_metadata
+    </filter>
+
+    <filter kubernetes.**>
+      @type record_transformer
+      enable_ruby true
+      <record>
+        method ${record["log"] =~ /(?<method>GET|POST|PUT|DELETE|PATCH)/ ? $~[:method] : ""}
+        path ${record["log"] =~ /(?<method>GET|POST|PUT|DELETE|PATCH) (?<path>\/[^ ]*)/ ? $~[:path] : ""}
+        status ${record["log"] =~ /Status: (?<status>\d{3})/ ? $~[:status] : ""}
+      </record>
+    </filter>
+
+    <match kubernetes.**>
+      @type elasticsearch
+      @id out_es
+      host "#{ENV['FLUENT_ELASTICSEARCH_HOST']}"
+      port "#{ENV['FLUENT_ELASTICSEARCH_PORT']}"
+      scheme "#{ENV['FLUENT_ELASTICSEARCH_SCHEME'] || 'http'}"
+      index_name fluentd-kubernetes.%Y%m%d
+      logstash_format true
+      include_tag_key true
+      type_name access_log
+    </match>

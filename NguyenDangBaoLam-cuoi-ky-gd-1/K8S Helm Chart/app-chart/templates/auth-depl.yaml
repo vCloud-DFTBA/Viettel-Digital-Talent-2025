@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+  namespace: ktpm
+spec:
+  replicas: {{ .Values.auth.replicaCount }}
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: auth-container
+        image: {{ .Values.auth.image }}
+        env:
+        - name: AUTH_ADMIN
+          valueFrom: 
+            configMapKeyRef: 
+              name: {{ .Values.auth.configMap }}
+              key: AUTH_ADMIN
+        - name: AUTH_USER
+          valueFrom: 
+            configMapKeyRef: 
+              name: {{ .Values.auth.configMap }}
+              key: AUTH_USER
+        ports:
+        - containerPort: {{ .Values.auth.service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: ktpm
+spec:
+  selector:
+    app: auth
+  ports:
+  - port: {{ .Values.auth.service.port }}
+    targetPort: {{ .Values.auth.service.port }}
+  type: {{ .Values.auth.service.type }}

@@ -1,0 +1,4 @@
+- name: Deploy Prometheus to Kubernetes
+  hosts: all    
+  roles:
+    - prometheus

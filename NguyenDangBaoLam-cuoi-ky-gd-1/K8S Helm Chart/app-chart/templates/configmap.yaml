@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.auth.configMap }}
+  namespace: ktpm
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: my-app
+    meta.helm.sh/release-namespace: ktpm
+data:
+  AUTH_ADMIN: "admin:$apr1$3pAXQiah$DZT84lgklt1Y0/hg1U4AB/"
+  AUTH_USER: "user:$apr1$rxK5bwTq$iwMky0GOH.3BkUwCAYfYc0"

@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for prometheus
+- name: Apply ConfigMap for Prometheus
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', 'files/prometheus-configmap.yaml') }}"
+
+- name: Deploy Prometheus
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', 'files/prometheus-deployment.yaml') }}"
+
+- name: Expose Prometheus Service
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', 'files/prometheus-service.yaml') }}"
