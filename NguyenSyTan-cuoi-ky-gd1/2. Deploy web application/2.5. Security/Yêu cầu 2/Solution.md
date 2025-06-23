@@ -1,5 +1,5 @@
 # Giải pháp cho yêu cầu 2
-Nhìn lại kiến trúc của web app:
+Nhìn lại kiến trúc của web app:   
 ![](../../../images/web-architecture.jpg)
 ## Giải pháp authentication
 - Sử dụng JWT Token để làm giải pháp authentication, khi người dùng đăng nhập thành công, server sẽ trả về 1 JWT token cho người dùng. Token này sẽ được lưu trữ trên trình duyệt của người dùng và sẽ được gửi kèm theo các request đến api backend.
