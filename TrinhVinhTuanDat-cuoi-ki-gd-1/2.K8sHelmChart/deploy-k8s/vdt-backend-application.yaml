@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vdt-backend
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Backend Config Repository (chứa values.yaml)
+    - repoURL: 'https://github.com/Maybetuandat/vdt_2025_backend_config'
+      targetRevision: HEAD
+      ref: values
+    # Backend Source Code Repository (chứa Helm Chart)
+    - repoURL: 'https://github.com/Maybetuandat/vdt_2025_backend'
+      targetRevision: HEAD
+      path: 'backend-chart'
+      helm:
+        valueFiles:
+        - $values/helm-values/values-prod.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: vdt-app
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
