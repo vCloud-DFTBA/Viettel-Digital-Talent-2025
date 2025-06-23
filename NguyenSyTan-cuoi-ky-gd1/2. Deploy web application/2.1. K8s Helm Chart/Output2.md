@@ -10,7 +10,7 @@ trên k8s bằng Helm Chart
 - Các file values.yaml trong config repo của app
     - Repo config: https://github.com/nguyentankdb17/microservice_app-config
 - Manifest của ArgoCD Application 
-    - Manifest file: [argocd-application-manifest](./argocd-application-manifest.yml)
+    - Manifest file: [argocd-application-manifest.yml](./argocd-application-manifest.yml)
 - Ảnh chụp giao diện màn hình hệ thống ArgoCD trên trình duyệt
 ![](/NguyenSyTan-cuoi-ky-gd1/images/argocd-view.png) 
 - Ảnh chụp giao diện màn hình trình duyệt khi truy cập vào Web URL, API URL
