@@ -9,6 +9,6 @@
 - Ảnh chụp giao diện màn hình hệ thống ArgoCD khi truy cập qua trình duyệt trình duyệt 
 ![](../../images/argocd-dashboard.png)
 - File manifests sử dụng để triển khai Jenkins lên K8S Cluster:
-    - Các file manifest: [jenkins-manifests](2.%20Deploy%20web%20application/2.1.%20K8s%20Helm%20Chart/jenkins-manifest/)
+    - Các file manifest: [jenkins-manifests](./jenkins-manifest/)
 - Ảnh chụp giao diện màn hình hệ thống Jenkins khi truy cập qua trình duyệt trình duyệt
 ![](../../images/jenkins-dashboard.png)
