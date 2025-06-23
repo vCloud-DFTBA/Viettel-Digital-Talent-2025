@@ -1,0 +1,4 @@
+persistence:
+  enabled: true
+  existingClaim: jenkins-pvc
+  storageClass: nfs-storage

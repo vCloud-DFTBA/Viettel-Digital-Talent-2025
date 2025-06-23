@@ -1,0 +1,154 @@
+<source>
+  @type tail
+  @id in_tail_vdt_api
+  path /var/log/containers/vdt-api-*.log
+  pos_file /var/log/fluentd-vdt-api.log.pos
+  tag k8s-vdt-api
+  read_from_head true
+  <parse>
+    @type regexp
+    expression /^(?<time>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z) (?<stream>stdout|stderr) (?<partial_flag>\w) (?<log>.*)$/
+    time_key time
+    time_format %Y-%m-%dT%H:%M:%S.%NZ
+  </parse>
+</source>
+
+
+<source>
+  @type tail
+  @id in_tail_vdt_frontend
+  path /var/log/containers/vdt-frontend-*.log
+  pos_file /var/log/fluentd-vdt-frontend.log.pos
+  tag k8s-vdt-frontend
+  read_from_head true
+  <parse>
+    @type regexp
+    expression /^(?<time>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z) (?<stream>stdout|stderr) (?<partial_flag>\w) (?<log>.*)$/
+    time_key time
+    time_format %Y-%m-%dT%H:%M:%S.%NZ
+  </parse>
+</source>
+
+
+<filter k8s-vdt-api>
+  @type parser
+  key_name log
+  reserve_data true
+  remove_key_name_field false
+  emit_invalid_record_to_error false
+  <parse>
+    @type regexp
+    expression /^INFO:\s+(?<remote_ip>\d+\.\d+\.\d+\.\d+):(?<remote_port>\d+) - "(?<method>\w+) (?<endpoint>[^"]*) (?<protocol>[^"]*)" (?<status>\d+) (?<status_text>\w+)$/
+  </parse>
+</filter>
+
+
+<filter k8s-vdt-api>
+  @type record_transformer
+  enable_ruby true
+  <record>
+    app_name "VDT-API"
+    log_type "fastapi"
+    cluster_name "kubernetes"
+
+    parsed_log ${begin; record["log"].strip; rescue; record["log"]; end}
+
+    endpoint_category ${begin; endpoint = record["endpoint"] || ""; case endpoint; when /^\/docs/ then "documentation"; when /^\/metrics/ then "monitoring"; when /^\/health/ then "health_check"; when /^\/api\/v\d+/ then "api"; else "other"; end; rescue; "unknown"; end}
+
+    status_category ${begin; status = (record["status"] || "0").to_i; case status; when 200..299 then "success"; when 300..399 then "redirect"; when 400..499 then "client_error"; when 500..599 then "server_error"; else "unknown"; end; rescue; "unknown"; end}
+  </record>
+</filter>
+
+
+<filter k8s-vdt-frontend>
+  @type parser
+  key_name log
+  reserve_data true
+  remove_key_name_field false
+  emit_invalid_record_to_error false
+  <parse>
+    @type regexp
+    expression /^(?<remote_ip>\d+\.\d+\.\d+\.\d+) - - \[(?<time_local>[^\]]+)\] "(?<method>\w+) (?<endpoint>[^"]*) (?<protocol>[^"]*)" (?<status>\d+) (?<body_bytes_sent>\d+|-) "(?<http_referer>[^"]*)" "(?<http_user_agent>[^"]*)" "(?<extra_field>[^"]*)"$/
+  </parse>
+</filter>
+
+<filter k8s-vdt-frontend>
+  @type record_transformer
+  enable_ruby true
+  <record>
+    app_name "VDT-FRONTEND" 
+    log_type "nginx"
+    cluster_name "kubernetes"
+
+    parsed_log ${begin; record["log"].strip; rescue; record["log"]; end}
+
+    endpoint_category ${begin; endpoint = record["endpoint"] || ""; case endpoint; when /^\/$/ then "home"; when /^\/static/ then "static"; when /^\/assets/ then "assets"; when /^\/api/ then "api_proxy"; when /\.html$/ then "page"; when /\.js$/ then "javascript"; when /\.css$/ then "stylesheet"; else "other"; end; rescue; "unknown"; end}
+
+    status_category ${begin; status = (record["status"] || "0").to_i; case status; when 200..299 then "success"; when 300..399 then "redirect"; when 400..499 then "client_error"; when 500..599 then "server_error"; else "unknown"; end; rescue; "unknown"; end}
+
+    remote_port ${begin; record["remote_port"] || "unknown"; rescue; "unknown"; end}
+  </record>
+</filter>
+
+
+<match k8s-vdt-api>
+  @type elasticsearch
+  @id out_es_api
+  @log_level info
+  include_tag_key true
+  host 192.168.122.89
+  port 9200
+  scheme http
+  ssl_verify false
+  reconnect_on_error true
+  reload_on_failure true
+  reload_connections false
+  
+
+  logstash_format true
+  logstash_prefix vdt-api-logs
+  logstash_dateformat %Y.%m.%d
+  
+  <buffer>
+    flush_thread_count 2
+    flush_interval 5s
+    chunk_limit_size 2M
+    queue_limit_length 32
+    retry_max_interval 30
+    retry_forever true
+  </buffer>
+</match>
+
+
+<match k8s-vdt-frontend>
+  @type elasticsearch
+  @id out_es_frontend
+  @log_level info
+  include_tag_key true
+  host 192.168.122.89
+  port 9200
+  scheme http
+  ssl_verify false
+  reconnect_on_error true
+  reload_on_failure true
+  reload_connections false
+  
+  logstash_format true
+  logstash_prefix vdt-frontend-logs
+  logstash_dateformat %Y.%m.%d
+  
+  <buffer>
+    flush_thread_count 2
+    flush_interval 5s
+    chunk_limit_size 2M
+    queue_limit_length 32
+    retry_max_interval 30
+    retry_forever true
+  </buffer>
+</match>
+
+
+<match **>
+  @type stdout
+  @id out_debug
+</match> 

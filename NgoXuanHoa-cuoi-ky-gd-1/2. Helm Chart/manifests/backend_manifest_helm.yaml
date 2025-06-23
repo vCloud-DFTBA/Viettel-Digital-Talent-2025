@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vdt-api
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/hoango277/vdt-api
+    path: helm
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml           
+        - $values/values.yaml   
+  - repoURL: https://github.com/hoango277/vdt-config-api
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

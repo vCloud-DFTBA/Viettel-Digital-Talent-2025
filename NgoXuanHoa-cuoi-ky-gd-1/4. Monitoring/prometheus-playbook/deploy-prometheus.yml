@@ -1,0 +1,89 @@
+---
+- name: Deploy Prometheus with existing containerd
+  hosts: prometheus
+  become: yes
+  vars:
+    prometheus_image: "docker.io/prom/prometheus:latest"
+    prometheus_port: 9090
+    prometheus_config_dir: /etc/prometheus
+    prometheus_data_dir: /var/lib/prometheus
+    prometheus_user_id: "65534"
+    prometheus_group_id: "65534"
+    
+  tasks:
+    - name: Check containerd service
+      systemd:
+        name: containerd
+        state: started
+      register: containerd_check
+      
+    - name: Create prometheus directories with correct permissions
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ prometheus_user_id }}"
+        group: "{{ prometheus_group_id }}"
+        mode: '0755'
+      loop:
+        - "{{ prometheus_config_dir }}"
+        - "{{ prometheus_data_dir }}"
+        
+    - name: Create Prometheus configuration
+      template:
+        src: prometheus.yml.j2
+        dest: "{{ prometheus_config_dir }}/prometheus.yml"
+        owner: "{{ prometheus_user_id }}"
+        group: "{{ prometheus_group_id }}"
+        mode: '0644'
+      notify: restart prometheus
+      
+    - name: Pull Prometheus image
+      shell: |
+        ctr image pull {{ prometheus_image }}
+      register: pull_result
+      changed_when: "'exists' not in pull_result.stderr"
+      
+    - name: Check if prometheus container exists
+      shell: ctr container ls -q | grep prometheus || true
+      register: container_exists
+      changed_when: false
+      
+    - name: Stop and remove existing container
+      shell: |
+        ctr task kill prometheus || true
+        ctr container rm prometheus || true
+      when: container_exists.stdout != ""
+      
+    - name: Create systemd service for Prometheus
+      template:
+        src: prometheus.service.j2
+        dest: /etc/systemd/system/prometheus.service
+        mode: '0644'
+      notify: restart prometheus
+      
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
+        
+    - name: Start and enable Prometheus
+      systemd:
+        name: prometheus
+        state: started
+        enabled: yes
+        
+    - name: Wait for Prometheus to be ready
+      uri:
+        url: "http://localhost:{{ prometheus_port }}/-/ready"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 15
+      delay: 5
+      ignore_errors: yes
+  
+  handlers:
+    - name: restart prometheus
+      systemd:
+        name: prometheus
+        state: restarted
+        daemon_reload: yes
