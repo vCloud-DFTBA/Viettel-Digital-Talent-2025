@@ -1,0 +1,38 @@
+- hosts: kube_node
+  become: true
+  vars:
+    efk_dir: /opt/efk
+  tasks:
+
+    - name: Ensure EFK stack directory exists
+      file:
+        path: "{{ efk_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy docker-compose.yml
+      copy:
+        src: files/docker-compose.yml
+        dest: "{{ efk_dir }}/docker-compose.yml"
+
+    - name: Ensure fluentd config directory exists
+      file:
+        path: "{{ efk_dir }}/fluentd"
+        state: directory
+        mode: '0755'
+
+    - name: Copy fluentd.conf
+      copy:
+        src: files/fluentd.conf
+        dest: "{{ efk_dir }}/fluentd/fluent.conf"
+
+    - name: Install docker-compose (if missing)
+      apt:
+        name: docker-compose
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Run docker-compose up
+      command: docker-compose up -d
+      args:
+        chdir: "{{ efk_dir }}"

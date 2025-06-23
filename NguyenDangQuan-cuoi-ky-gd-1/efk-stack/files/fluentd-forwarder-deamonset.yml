@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-forwarder
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-forwarder
+  template:
+    metadata:
+      labels:
+        name: fluentd-forwarder
+    spec:
+      containers:
+      - name: fluentd
+        image: fluent/fluentd-kubernetes-daemonset:v1.16.8-debian-elasticsearch7-1.1
+        volumeMounts:
+          - name: config-volume
+            mountPath: /fluentd/etc
+          - name: varlog
+            mountPath: /var/log
+          - name: dockercontainerlogdirectory
+            mountPath: /var/lib/docker/containers
+            readOnly: true
+        env:
+          - name: FLUENT_UID
+            value: "0"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: fluentd-forwarder-config
+        - name: varlog
+          hostPath:
+            path: /var/log
+        - name: dockercontainerlogdirectory
+          hostPath:
+            path: /var/lib/docker/containers
