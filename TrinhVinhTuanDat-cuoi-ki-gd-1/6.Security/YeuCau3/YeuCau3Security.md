@@ -7,7 +7,9 @@ Sử dụng 1 trong số các giải pháp để rate limit cho Endpoint của A
 
 ## Giải pháp đề xuất
 
-Giải pháp được đưa ra: **Rate limit ở HAProxy**
+Thực hiện đưa ra 2 giải pháp được đưa ra: 
+- **Rate limit ở HAProxy**
+- **Rate limit ở backend**
 
 
 ## 1. Rate Limit ở HAProxy
@@ -138,15 +140,90 @@ Từ kết quả kiểm thử có thể thấy:
 
 
 
-## Kết luận
+## 2. Rate limit ở backend 
 
-Giải pháp rate limiting sử dụng HAProxy đã được triển khai thành công và hoạt động đúng như yêu cầu. HAProxy có khả năng theo dõi số lượng request theo IP address trong khoảng thời gian 1 phút và tự động từ chối các request vượt quá ngưỡng cho phép.
+### Nguyên lý hoạt động
 
-Ưu điểm của giải pháp:
-- Xử lý tại tầng load balancer, bảo vệ toàn bộ backend
-- Cấu hình đơn giản và hiệu quả
-- Có thể tùy chỉnh response message và status code
-- Hỗ trợ monitoring qua HAProxy stats
+Rate limiting ở backend được triển khai dựa trên Token Bucket Algorithm với cơ chế hoạt động như sau:
 
-Giải pháp này phù hợp cho môi trường production để bảo vệ API khỏi các cuộc tấn công DDOS hoặc việc sử dụng tài nguyên quá mức.
+- Mỗi IP client được cấp một bucket riêng biệt để đảm bảo tính độc lập
+- Mỗi bucket được cấu hình chứa tối đa 10 tokens trong khoảng thời gian 1 phút
+- Sau mỗi phút, bucket sẽ được refill lại đầy đủ 10 tokens
+- Mỗi request từ client sẽ tiêu thụ 1 token từ bucket tương ứng với IP của họ
+- Khi bucket hết tokens, các request tiếp theo sẽ bị từ chối với mã lỗi 409
+
+### Cách triển khai
+
+**Tài liệu tham khảo:** [Rate Limiting a Spring API Using Bucket4j](https://www.baeldung.com/spring-bucket4j)
+
+**Bước 1: Thêm thư viện Bucket4j**
+
+![Dependency Configuration](image-2.png)
+
+**Bước 2: Tạo Rate Limiting Filter**
+
+![Filter Implementation](image-3.png)
+
+**Bước 3: Kiểm tra kết quả**
+
+Sử dụng script curl để test rate limiting:
+
+```bash
+LOG_FILE="rate_test_$(date '+%Y%m%d_%H%M%S').txt"
+LOG_ID="TEST_$(date '+%Y%m%d%H%M%S')"
+
+{
+    echo "=== Rate Limiting Test - ID: $LOG_ID ==="
+    echo "Time: $(date)"
+    echo ""
+    
+    for i in {1..12}; do
+        echo "Request $i: [$(date '+%H:%M:%S')]"
+        curl -s -w "HTTP Code: %{http_code}\n" http://192.168.122.93:30002/api/students
+        echo "---"
+        sleep 2
+    done
+    
+    echo ""
+    echo "Test completed: $(date)"
+} | tee $LOG_FILE
+
+echo "Log saved to: $LOG_FILE"
+```
+
+**File thực thi test:** [rateLimitSpring](./Logs/ratelimitinSpring.sh)
+
+### Kết quả kiểm tra
+
+**Kết quả thực thi với curl:**
+
+![Test Results](image-4.png)
+
+**File log chi tiết:** [rate_test_20250623_195421.txt](./Logs/rate_test_20250623_195421.txt)
+
+### Kết quả
+
+Giải pháp rate limiting ở backend đã thỏa mãn yêu cầu đề bài:
+- Giới hạn 10 requests trong 1 phút 
+- Trả về mã lỗi 409 khi vượt quá giới hạn
+- Tự động reset sau mỗi phút
+- Hoạt động ổn định và hiệu quả
+## 3. So sánh hai giải pháp Rate Limiting
+
+### Bảng so sánh tổng quan
+
+| Tiêu chí | HAProxy Rate Limiting | Backend Rate Limiting |
+|----------|----------------------|----------------------|
+| **Vị trí xử lý** | Load Balancer layer | Application layer |
+| **Hiệu năng** | Cao (xử lý ở tầng TCP/HTTP) | Trung bình (xử lý trong application) |
+| **Tài nguyên tiêu thụ** | Thấp | Cao hơn (RAM, CPU của backend) |
+| **Bảo mật** | Tốt (chặn sớm, bảo vệ backend) | Trung bình (traffic vẫn đến backend) |
+| **Cấu hình** | Đơn giản | Cần code và build lại |
+| **Monitoring** | HAProxy stats | Application metrics |
+
+# Kết luận
+
+Nhìn chung cả hai giải pháp đều có thể xử lý request limit theo yêu cầu đề bài. Tuy nhiên, giải pháp HAProxy thể hiện ưu thế vượt trội với hiệu năng cao hơn và tiêu thụ ít tài nguyên hệ thống hơn.
+
+HAProxy rate limiting hoạt động ở tầng load balancer, chặn các request vượt ngưỡng trước khi chúng đến backend, từ đó bảo vệ tốt hơn cho hệ thống và tối ưu hóa performance. Trong khi đó, backend rate limiting mặc dù linh hoạt hơn nhưng vẫn để các request đi qua toàn bộ network  trước khi xử lý.
 
