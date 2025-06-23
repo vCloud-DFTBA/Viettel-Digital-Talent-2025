@@ -19,7 +19,7 @@
 ### Tạo pipeline
 - Các bước tạo pipeline:
     - Từ trang chủ vào **New Item** -> **Pipeline**
-    - Tạo một script để chạy pipeline, ở đây em lựa chọn là sẽ poll pipeline từ SCM (Github Repo) để lấy Jenkinsfile:
+    - Tạo một script để chạy pipeline, ở đây em lựa chọn là sẽ poll pipeline script từ SCM (Github Repo) để lấy Jenkinsfile:
     ![](../../images/jenkins-pipeline.png)
     - Để pipeline được tự động kích hoạt, cần sử dụng webhook để trigger pipeline, tuy nhiên do jenkins thuộc mạng nội bộ nên một giải pháp là sử dụng `ngrok` để tạm thời export jenkins ra public:
     ![](../../images/jenkins-trigger.png)
