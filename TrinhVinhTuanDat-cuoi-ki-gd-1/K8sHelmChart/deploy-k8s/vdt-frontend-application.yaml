@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vdt-frontend
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Frontend Config Repository (chứa values.yaml)
+    - repoURL: 'https://github.com/Maybetuandat/vdt_2025_frontend_config'
+      targetRevision: HEAD
+      ref: values
+    # Frontend Source Code Repository (chứa Helm Chart)
+    - repoURL: 'https://github.com/Maybetuandat/vdt_2025_frontend'
+      targetRevision: HEAD
+      path: 'helm-chart'
+      helm:
+        valueFiles:
+        - $values/helm-values/values-prod.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: vdt-app
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

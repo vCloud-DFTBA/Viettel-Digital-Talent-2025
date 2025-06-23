@@ -1,0 +1,778 @@
+Triggered by tag: 2.0 from repo: vdt_2025_frontend
+ Received:
+
+{"ref":"2.0","ref_type":"tag","master_branch":"main","description":null,"pusher_type":"user","repository":{"id":1004227471,"node_id":"R_kgDOO9tLjw","name":"vdt_2025_frontend","full_name":"Maybetuandat/vdt_2025_frontend","private":false,"owner":{"login":"Maybetuandat","id":105091322,"node_id":"U_kgDOBkOQ-g","avatar_url":"https://avatars.githubusercontent.com/u/105091322?v=4","gravatar_id":"","url":"https://api.github.com/users/Maybetuandat","html_url":"https://github.com/Maybetuandat","followers_url":"https://api.github.com/users/Maybetuandat/followers","following_url":"https://api.github.com/users/Maybetuandat/following{/other_user}","gists_url":"https://api.github.com/users/Maybetuandat/gists{/gist_id}","starred_url":"https://api.github.com/users/Maybetuandat/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/Maybetuandat/subscriptions","organizations_url":"https://api.github.com/users/Maybetuandat/orgs","repos_url":"https://api.github.com/users/Maybetuandat/repos","events_url":"https://api.github.com/users/Maybetuandat/events{/privacy}","received_events_url":"https://api.github.com/users/Maybetuandat/received_events","type":"User","user_view_type":"public","site_admin":false},"html_url":"https://github.com/Maybetuandat/vdt_2025_frontend","description":null,"fork":false,"url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend","forks_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/forks","keys_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/keys{/key_id}","collaborators_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/teams","hooks_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/hooks","issue_events_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/issues/events{/number}","events_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/events","assignees_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/assignees{/user}","branches_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/branches{/branch}","tags_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/tags","blobs_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/git/refs{/sha}","trees_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/git/trees{/sha}","statuses_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/statuses/{sha}","languages_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/languages","stargazers_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/stargazers","contributors_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/contributors","subscribers_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/subscribers","subscription_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/subscription","commits_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/commits{/sha}","git_commits_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/git/commits{/sha}","comments_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/comments{/number}","issue_comment_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/issues/comments{/number}","contents_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/contents/{+path}","compare_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/compare/{base}...{head}","merges_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/merges","archive_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/downloads","issues_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/issues{/number}","pulls_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/pulls{/number}","milestones_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/milestones{/number}","notifications_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/labels{/name}","releases_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/releases{/id}","deployments_url":"https://api.github.com/repos/Maybetuandat/vdt_2025_frontend/deployments","created_at":"2025-06-18T10:01:28Z","updated_at":"2025-06-21T08:11:08Z","pushed_at":"2025-06-21T08:33:47Z","git_url":"git://github.com/Maybetuandat/vdt_2025_frontend.git","ssh_url":"git@github.com:Maybetuandat/vdt_2025_frontend.git","clone_url":"https://github.com/Maybetuandat/vdt_2025_frontend.git","svn_url":"https://github.com/Maybetuandat/vdt_2025_frontend","homepage":null,"size":45,"stargazers_count":0,"watchers_count":0,"language":"JavaScript","has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"has_discussions":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":0,"license":null,"allow_forking":true,"is_template":false,"web_commit_signoff_required":false,"topics":[],"visibility":"public","forks":0,"open_issues":0,"watchers":0,"default_branch":"main"},"sender":{"login":"Maybetuandat","id":105091322,"node_id":"U_kgDOBkOQ-g","avatar_url":"https://avatars.githubusercontent.com/u/105091322?v=4","gravatar_id":"","url":"https://api.github.com/users/Maybetuandat","html_url":"https://github.com/Maybetuandat","followers_url":"https://api.github.com/users/Maybetuandat/followers","following_url":"https://api.github.com/users/Maybetuandat/following{/other_user}","gists_url":"https://api.github.com/users/Maybetuandat/gists{/gist_id}","starred_url":"https://api.github.com/users/Maybetuandat/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/Maybetuandat/subscriptions","organizations_url":"https://api.github.com/users/Maybetuandat/orgs","repos_url":"https://api.github.com/users/Maybetuandat/repos","events_url":"https://api.github.com/users/Maybetuandat/events{/privacy}","received_events_url":"https://api.github.com/users/Maybetuandat/received_events","type":"User","user_view_type":"public","site_admin":false}}
+
+
+Contributing variables:
+
+    REF_TYPE = tag
+    REPO_NAME = vdt_2025_frontend
+    TAG_NAME = 2.0
+
+
+Lightweight checkout support not available, falling back to full checkout.
+Checking out git https://github.com/Maybetuandat/vdt_2025_frontend into /var/jenkins_home/workspace/vdt-app/vdt_frontend@script/a58cbe674597044b46359c4dd4eb998a7b24b497c77f8370dbb13ae1a6ead6d1 to read Jenkinsfile
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github_token
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/vdt-app/vdt_frontend@script/a58cbe674597044b46359c4dd4eb998a7b24b497c77f8370dbb13ae1a6ead6d1/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Maybetuandat/vdt_2025_frontend # timeout=10
+Fetching upstream changes from https://github.com/Maybetuandat/vdt_2025_frontend
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials github token for config repo
+ > git fetch --tags --force --progress -- https://github.com/Maybetuandat/vdt_2025_frontend +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/main
+Seen 1 remote branch
+ > git show-ref --tags -d # timeout=10
+Checking out Revision 83fa82ee7c0b3fe10a4b58e18c54e025eb69e292 (refs/tags/2.0)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 83fa82ee7c0b3fe10a4b58e18c54e025eb69e292 # timeout=10
+Commit message: "update version 2.0"
+First time build. Skipping changelog.
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on docker_builder in /var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github_token
+Cloning the remote Git repository
+Cloning repository https://github.com/Maybetuandat/vdt_2025_frontend
+ > /usr/bin/git init /var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend # timeout=10
+Fetching upstream changes from https://github.com/Maybetuandat/vdt_2025_frontend
+ > /usr/bin/git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials github token for config repo
+ > /usr/bin/git fetch --tags --force --progress -- https://github.com/Maybetuandat/vdt_2025_frontend +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 83fa82ee7c0b3fe10a4b58e18c54e025eb69e292 (refs/tags/2.0)
+Commit message: "update version 2.0"
+[Pipeline] }
+ > /usr/bin/git config remote.origin.url https://github.com/Maybetuandat/vdt_2025_frontend # timeout=10
+ > /usr/bin/git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/main
+Seen 1 remote branch
+ > /usr/bin/git show-ref --tags -d # timeout=10
+ > /usr/bin/git config core.sparsecheckout # timeout=10
+ > /usr/bin/git checkout -f 83fa82ee7c0b3fe10a4b58e18c54e025eb69e292 # timeout=10
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Agent Information)
+[Pipeline] echo
+ Running on agent: docker_builder
+[Pipeline] echo
+ Workspace: /var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend
+[Pipeline] sh
++ whoami
+jenkins
+[Pipeline] sh
++ pwd
+/var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend
+[Pipeline] sh
++ uname -a
+Linux dockerbuilder 5.15.0-141-generic #151-Ubuntu SMP Sun May 18 21:35:19 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Checkout Source Code)
+[Pipeline] echo
+ Cloning frontend source code...
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github_token
+Fetching changes from the remote Git repository
+ > /usr/bin/git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend/.git # timeout=10
+ > /usr/bin/git config remote.origin.url https://github.com/Maybetuandat/vdt_2025_frontend # timeout=10
+Fetching upstream changes from https://github.com/Maybetuandat/vdt_2025_frontend
+ > /usr/bin/git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials github token for config repo
+ > /usr/bin/git fetch --tags --force --progress -- https://github.com/Maybetuandat/vdt_2025_frontend +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 83fa82ee7c0b3fe10a4b58e18c54e025eb69e292 (refs/tags/2.0)
+Commit message: "update version 2.0"
+[Pipeline] echo
+ Clone completed!
+[Pipeline] sh
++ ls -la
+total 172
+drwxrwxr-x 6 jenkins jenkins  4096 Jun 21 08:34 .
+drwxrwxr-x 5 jenkins jenkins  4096 Jun 21 08:34 ..
+-rw-rw-r-- 1 jenkins jenkins   327 Jun 21 08:34 Dockerfile
+-rw-rw-r-- 1 jenkins jenkins    58 Jun 21 08:34 .env
+-rw-rw-r-- 1 jenkins jenkins   844 Jun 21 08:34 eslint.config.js
+drwxrwxr-x 8 jenkins jenkins  4096 Jun 21 08:34 .git
+-rw-rw-r-- 1 jenkins jenkins   253 Jun 21 08:34 .gitignore
+drwxrwxr-x 3 jenkins jenkins  4096 Jun 21 08:34 helm-chart
+-rw-rw-r-- 1 jenkins jenkins   361 Jun 21 08:34 index.html
+-rw-rw-r-- 1 jenkins jenkins 11255 Jun 21 08:34 Jenkinsfile
+-rw-rw-r-- 1 jenkins jenkins   358 Jun 21 08:34 nginx.conf
+-rw-rw-r-- 1 jenkins jenkins   598 Jun 21 08:34 package.json
+-rw-rw-r-- 1 jenkins jenkins 96313 Jun 21 08:34 package-lock.json
+drwxrwxr-x 2 jenkins jenkins  4096 Jun 21 08:34 public
+-rw-rw-r-- 1 jenkins jenkins   856 Jun 21 08:34 README.md
+drwxrwxr-x 3 jenkins jenkins  4096 Jun 21 08:34 src
+-rw-rw-r-- 1 jenkins jenkins    51 Jun 21 08:34 version20.txt
+-rw-rw-r-- 1 jenkins jenkins   161 Jun 21 08:34 vite.config.js
+Seen branch in repository origin/main
+Seen 1 remote branch
+ > /usr/bin/git show-ref --tags -d # timeout=10
+ > /usr/bin/git config core.sparsecheckout # timeout=10
+ > /usr/bin/git checkout -f 83fa82ee7c0b3fe10a4b58e18c54e025eb69e292 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Get Git Tag Version)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Getting Git tag version...
+[Pipeline] sh
++ git log --oneline -n 5
+83fa82e update version 2.0
+4fd93bf update version 1.3
+e31d290 test version 1.2
+501a6da update version 1.1
+a9a4903 update jenkins file
+[Pipeline] sh
++ git tag --list
+1.0
+1.1
+1.2
+1.3
+2.0
+[Pipeline] sh
++ git describe --tags --exact-match
+[Pipeline] echo
+ Using tag version: 2.0
+[Pipeline] echo
+ Docker image will be: maybetuandat/vdt_fe:2.0
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Verify Frontend Files)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Checking frontend files...
+[Pipeline] fileExists
+[Pipeline] echo
+ package.json found!
+[Pipeline] sh
++ head -10 package.json
+{
+  "name": "fe",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+[Pipeline] fileExists
+[Pipeline] echo
+ Dockerfile found!
+[Pipeline] sh
++ head -10 Dockerfile
+FROM node:22-alpine as build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+ENV VITE_API_BASE_URL=http://192.168.122.93:30002/api/students
+RUN npm run build
+
+[Pipeline] fileExists
+[Pipeline] echo
+ nginx.conf found!
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Check Docker)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Checking Docker availability...
+[Pipeline] sh
++ which docker
+/usr/bin/docker
+[Pipeline] sh
++ docker info
+Client: Docker Engine - Community
+ Version:    28.2.2
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.24.0
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v2.36.2
+    Path:     /usr/libexec/docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+ Server Version: 28.2.2
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: systemd
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ CDI spec directories:
+  /etc/cdi
+  /var/run/cdi
+ Swarm: inactive
+ Runtimes: runc io.containerd.runc.v2
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 05044ec0a9a75232cad458027ca83437aae3f4da
+ runc version: v1.2.5-0-g59923ef
+ init version: de40ad0
+ Security Options:
+  apparmor
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 5.15.0-141-generic
+ Operating System: Ubuntu 22.04.5 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 1
+ Total Memory: 1.918GiB
+ Name: dockerbuilder
+ ID: a941326f-52ac-4c93-92e1-c95f2192006a
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Username: maybetuandat
+ Experimental: false
+ Insecure Registries:
+  ::1/128
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+[Pipeline] echo
+ Docker is available!
+[Pipeline] sh
++ docker --version
+Docker version 28.2.2, build e6534b4
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Building frontend Docker image: maybetuandat/vdt_fe:2.0
+[Pipeline] sh
++ docker build -t maybetuandat/vdt_fe:2.0 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 366B done
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 1)
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/nginx:alpine
+#2 ...
+
+#3 [auth] library/nginx:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/node:22-alpine
+#5 DONE 3.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:alpine
+#2 DONE 3.0s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 2B 0.0s done
+#6 DONE 0.1s
+
+#7 [stage-1 1/2] FROM docker.io/library/nginx:alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#7 resolve docker.io/library/nginx:alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
+#7 sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 10.33kB / 10.33kB done
+#7 sha256:62223d644fa234c3a1cc785ee14242ec47a77364226f1c811d2f669f96dc2ac8 2.50kB / 2.50kB done
+#7 sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea 10.79kB / 10.79kB done
+#7 ...
+
+#8 [internal] load build context
+#8 transferring context: 268.39kB 0.3s done
+#8 DONE 0.3s
+
+#9 [build 1/6] FROM docker.io/library/node:22-alpine@sha256:41e4389f3d988d2ed55392df4db1420ad048ae53324a8e2b7c6d19508288107e
+#9 resolve docker.io/library/node:22-alpine@sha256:41e4389f3d988d2ed55392df4db1420ad048ae53324a8e2b7c6d19508288107e 0.1s done
+#9 sha256:41e4389f3d988d2ed55392df4db1420ad048ae53324a8e2b7c6d19508288107e 6.41kB / 6.41kB done
+#9 sha256:11d923cca2138d844282dc0c333132bba72deb913d635c3c33e54523b455a4da 1.72kB / 1.72kB done
+#9 sha256:fb419a5d2f1d0d7ebb463275ecb1b4e71b70ecc6b8afa26e48cbe8918cfd944b 6.21kB / 6.21kB done
+#9 sha256:826f8ad948ffe9f7dc092f12ede9e6f14c1db6dae6c0c20bad69d3d9056a02a4 0B / 1.26MB 0.5s
+#9 sha256:fe07684b16b82247c3539ed86a65ff37a76138ec25d380bd80c869a1a4c73236 0B / 3.80MB 0.5s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 0B / 50.96MB 0.5s
+#9 sha256:826f8ad948ffe9f7dc092f12ede9e6f14c1db6dae6c0c20bad69d3d9056a02a4 1.26MB / 1.26MB 0.6s done
+#9 sha256:cb37e5b9a0a186241dd70c5ceab5af7a7a891d3180a4b160af2fce1cf46383ac 0B / 446B 0.7s
+#9 sha256:fe07684b16b82247c3539ed86a65ff37a76138ec25d380bd80c869a1a4c73236 3.80MB / 3.80MB 0.8s
+#9 sha256:fe07684b16b82247c3539ed86a65ff37a76138ec25d380bd80c869a1a4c73236 3.80MB / 3.80MB 0.8s done
+#9 extracting sha256:fe07684b16b82247c3539ed86a65ff37a76138ec25d380bd80c869a1a4c73236
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 3.15MB / 50.96MB 1.0s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 8.39MB / 50.96MB 1.2s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 12.58MB / 50.96MB 1.3s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 17.83MB / 50.96MB 1.5s
+#9 sha256:cb37e5b9a0a186241dd70c5ceab5af7a7a891d3180a4b160af2fce1cf46383ac 446B / 446B 1.3s done
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 20.76MB / 50.96MB 1.7s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 24.12MB / 50.96MB 2.0s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 27.28MB / 50.96MB 2.2s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 33.24MB / 50.96MB 2.4s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 37.75MB / 50.96MB 2.5s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 42.99MB / 50.96MB 2.8s
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 49.28MB / 50.96MB 3.0s
+#9 extracting sha256:fe07684b16b82247c3539ed86a65ff37a76138ec25d380bd80c869a1a4c73236 2.3s done
+#9 sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 50.96MB / 50.96MB 3.2s done
+#9 extracting sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2
+#9 ...
+
+#7 [stage-1 1/2] FROM docker.io/library/nginx:alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#7 sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 3.64MB / 3.64MB 1.4s done
+#7 sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 1.79MB / 1.79MB 1.7s done
+#7 sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 629B / 629B 1.9s done
+#7 extracting sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 1.8s done
+#7 sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 955B / 955B 2.4s done
+#7 sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 402B / 402B 2.5s done
+#7 sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 1.21kB / 1.21kB 2.7s done
+#7 sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 1.40kB / 1.40kB 3.0s done
+#7 sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 15.52MB / 15.52MB 3.6s done
+#7 extracting sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 0.6s done
+#7 extracting sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 done
+#7 extracting sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 0.0s done
+#7 extracting sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 done
+#7 extracting sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 0.0s done
+#7 extracting sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 done
+#7 extracting sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 2.3s done
+#7 DONE 7.8s
+
+#9 [build 1/6] FROM docker.io/library/node:22-alpine@sha256:41e4389f3d988d2ed55392df4db1420ad048ae53324a8e2b7c6d19508288107e
+#9 extracting sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 5.1s
+#9 extracting sha256:65b9c193e6b7c9d299d1f52e4accba0a196032bdc252ed873ada8952c50612b2 8.6s done
+#9 extracting sha256:826f8ad948ffe9f7dc092f12ede9e6f14c1db6dae6c0c20bad69d3d9056a02a4
+#9 extracting sha256:826f8ad948ffe9f7dc092f12ede9e6f14c1db6dae6c0c20bad69d3d9056a02a4 0.2s done
+#9 extracting sha256:cb37e5b9a0a186241dd70c5ceab5af7a7a891d3180a4b160af2fce1cf46383ac
+#9 extracting sha256:cb37e5b9a0a186241dd70c5ceab5af7a7a891d3180a4b160af2fce1cf46383ac done
+#9 DONE 13.3s
+
+#10 [build 2/6] WORKDIR /app
+#10 DONE 0.4s
+
+#11 [build 3/6] COPY package*.json ./
+#11 DONE 0.2s
+
+#12 [build 4/6] RUN npm install
+#12 11.98 
+#12 11.98 added 156 packages, and audited 157 packages in 11s
+#12 11.98 
+#12 11.98 33 packages are looking for funding
+#12 11.98   run `npm fund` for details
+#12 11.98 
+#12 11.98 found 0 vulnerabilities
+#12 11.99 npm notice
+#12 11.99 npm notice New major version of npm available! 10.9.2 -> 11.4.2
+#12 11.99 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+#12 11.99 npm notice To update run: npm install -g npm@11.4.2
+#12 11.99 npm notice
+#12 DONE 12.7s
+
+#13 [build 5/6] COPY . .
+#13 DONE 0.3s
+
+#14 [build 6/6] RUN npm run build
+#14 1.173 
+#14 1.173 > fe@0.0.0 build
+#14 1.173 > vite build
+#14 1.173 
+#14 2.080 vite v6.3.5 building for production...
+#14 2.311 transforming...
+#14 7.211 ✓ 30 modules transformed.
+#14 8.058 rendering chunks...
+#14 8.097 computing gzip size...
+#14 8.140 dist/index.html                   0.46 kB │ gzip:  0.30 kB
+#14 8.142 dist/assets/index-D4dM9rzu.css    5.83 kB │ gzip:  1.98 kB
+#14 8.143 dist/assets/index-CD6Z1B0W.js   194.05 kB │ gzip: 60.88 kB
+#14 8.146 ✓ built in 5.99s
+#14 DONE 8.3s
+
+#15 [stage-1 2/2] COPY --from=build /app/dist /usr/share/nginx/html
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.1s done
+#16 writing image sha256:d017d287690f0a6f5054c75146011349ee51a8e8f732692e87bef9987254da66 done
+#16 naming to docker.io/maybetuandat/vdt_fe:2.0 0.0s done
+#16 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 1)
++ docker tag maybetuandat/vdt_fe:2.0 maybetuandat/vdt_fe:latest
+[Pipeline] echo
+ Frontend Docker image built successfully!
+[Pipeline] sh
++ grep maybetuandat/vdt_fe
++ docker images
+maybetuandat/vdt_fe   2.0       d017d287690f   Less than a second ago   48.4MB
+maybetuandat/vdt_fe   latest    d017d287690f   Less than a second ago   48.4MB
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Testing frontend Docker image...
+[Pipeline] sh
++ echo Testing if nginx image can start...
+Testing if nginx image can start...
++ docker run --rm -d --name test-frontend-5 -p 8081:80 maybetuandat/vdt_fe:2.0
+196a9b481d12f0e3a08785598fe5274d6964852836d98cbd98ef28e4f0c2052d
++ sleep 5
++ curl -f http://localhost:8081/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100   459  100   459    0     0  73299      0 --:--:-- --:--:-- --:--:--  112k
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <script type="module" crossorigin src="/assets/index-CD6Z1B0W.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D4dM9rzu.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
++ docker stop test-frontend-5
+test-frontend-5
++ docker rm test-frontend-5
+Error response from daemon: No such container: test-frontend-5
++ true
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push to Docker Hub)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Pushing frontend image to Docker Hub...
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PASSWORD
+[Pipeline] {
+[Pipeline] sh
++ + docker login -u maybetuandat --password-stdin
+echo ****
+Login Succeeded
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] sh
++ docker push maybetuandat/vdt_fe:2.0
+The push refers to repository [docker.io/maybetuandat/vdt_fe]
+b24dada7ba15: Preparing
+0d853d50b128: Preparing
+947e805a4ac7: Preparing
+811a4dbbf4a5: Preparing
+b8d7d1d22634: Preparing
+e244aa659f61: Preparing
+c56f134d3805: Preparing
+d71eae0084c1: Preparing
+08000c18d16d: Preparing
+e244aa659f61: Waiting
+c56f134d3805: Waiting
+d71eae0084c1: Waiting
+08000c18d16d: Waiting
+811a4dbbf4a5: Layer already exists
+b8d7d1d22634: Layer already exists
+947e805a4ac7: Layer already exists
+0d853d50b128: Layer already exists
+d71eae0084c1: Layer already exists
+c56f134d3805: Layer already exists
+08000c18d16d: Layer already exists
+e244aa659f61: Layer already exists
+b24dada7ba15: Pushed
+2.0: digest: sha256:c844707e6c0505b1be3fd6732d76accded189d9f72c25b98e50893696fccd383 size: 2198
++ docker push maybetuandat/vdt_fe:latest
+The push refers to repository [docker.io/maybetuandat/vdt_fe]
+b24dada7ba15: Preparing
+0d853d50b128: Preparing
+947e805a4ac7: Preparing
+811a4dbbf4a5: Preparing
+b8d7d1d22634: Preparing
+e244aa659f61: Preparing
+c56f134d3805: Preparing
+d71eae0084c1: Preparing
+08000c18d16d: Preparing
+e244aa659f61: Waiting
+c56f134d3805: Waiting
+d71eae0084c1: Waiting
+08000c18d16d: Waiting
+811a4dbbf4a5: Layer already exists
+947e805a4ac7: Layer already exists
+b8d7d1d22634: Layer already exists
+0d853d50b128: Layer already exists
+b24dada7ba15: Layer already exists
+e244aa659f61: Layer already exists
+d71eae0084c1: Layer already exists
+08000c18d16d: Layer already exists
+c56f134d3805: Layer already exists
+latest: digest: sha256:c844707e6c0505b1be3fd6732d76accded189d9f72c25b98e50893696fccd383 size: 2198
+[Pipeline] echo
+✅ Successfully pushed frontend image to Docker Hub!
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Clone Config Repo)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Cloning frontend config repository...
+[Pipeline] sh
++ mkdir -p config-repo
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend/config-repo
+[Pipeline] {
+[Pipeline] withCredentials
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+Masking supported pattern matches of $GIT_PASSWORD or $GIT_ASKPASS
+[Pipeline] {
+[Pipeline] sh
++ git clone https://github.com/maybetuandat/vdt_2025_frontend_config.git .
+Cloning into '.'...
++ git config user.email maybetuandat@trinhvinhtuandat05102003.com
++ git config user.name Jenkins CI/CD Frontend
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+ Frontend config repo cloned successfully!
+[Pipeline] sh
++ ls -la
+total 20
+drwxrwxr-x 4 jenkins jenkins 4096 Jun 21 08:35 .
+drwxrwxr-x 8 jenkins jenkins 4096 Jun 21 08:35 ..
+drwxrwxr-x 8 jenkins jenkins 4096 Jun 21 08:35 .git
+drwxrwxr-x 2 jenkins jenkins 4096 Jun 21 08:35 helm-values
+-rw-rw-r-- 1 jenkins jenkins   22 Jun 21 08:35 README.md
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Update Frontend Helm Values)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Updating frontend Helm values with new image version...
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend/config-repo
+[Pipeline] {
+[Pipeline] echo
+Current frontend helm values:
+[Pipeline] sh
++ grep -A3 -B3 tag
++ cat helm-values/values-prod.yaml
+image:
+  repository: maybetuandat/vdt_fe
+  pullPolicy: IfNotPresent
+  tag: "1.3"
+
+securityContext: {}
+
+[Pipeline] sh
++ sed -i s/^  tag.*/  tag: "2.0"/ helm-values/values-prod.yaml
+[Pipeline] echo
+Updated frontend helm values:
+[Pipeline] sh
++ grep -A3 -B3 tag
++ cat helm-values/values-prod.yaml
+image:
+  repository: maybetuandat/vdt_fe
+  pullPolicy: IfNotPresent
+  tag: "2.0"
+
+securityContext: {}
+
+[Pipeline] sh
++ git diff helm-values/values-prod.yaml
+diff --git a/helm-values/values-prod.yaml b/helm-values/values-prod.yaml
+index 7a35033..c180c18 100644
+--- a/helm-values/values-prod.yaml
++++ b/helm-values/values-prod.yaml
+@@ -2,7 +2,7 @@ replicaCount: 1
+ image:
+   repository: maybetuandat/vdt_fe
+   pullPolicy: IfNotPresent
+-  tag: "1.3"
++  tag: "2.0"
+ 
+ securityContext: {}
+ 
+[Pipeline] echo
+ Frontend Helm values updated successfully!
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Frontend Config Changes)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+ Pushing frontend changes to config repository...
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/workspace/vdt-app/vdt_frontend/config-repo
+[Pipeline] {
+[Pipeline] sh
++ git status --porcelain
+[Pipeline] echo
+Frontend changes detected, committing and pushing...
+[Pipeline] sh
++ git add .
++ git commit -m  Update frontend image version to 2.0
+                                
+                                - Updated helm-values/values-prod.yaml
+                                - Image: maybetuandat/vdt_fe:2.0
+                                - Build: 5
+                                - Jenkins Job: vdt-app/vdt_frontend
+                                - Frontend deployment update
+[main 1686f26]  Update frontend image version to 2.0
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[Pipeline] withCredentials
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+Masking supported pattern matches of $GIT_PASSWORD or $GIT_ASKPASS
+[Pipeline] {
+[Pipeline] sh
++ git push origin main
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/Maybetuandat/vdt_2025_frontend_config.git        
+To https://github.com/maybetuandat/vdt_2025_frontend_config.git
+   93059ee..1686f26  main -> main
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+ Frontend config changes pushed successfully!
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+ Cleaning up frontend build...
+[Pipeline] sh
++ docker rmi maybetuandat/vdt_fe:2.0
+Untagged: maybetuandat/vdt_fe:2.0
++ docker rmi maybetuandat/vdt_fe:latest
+Untagged: maybetuandat/vdt_fe:latest
+Untagged: maybetuandat/vdt_fe@sha256:c844707e6c0505b1be3fd6732d76accded189d9f72c25b98e50893696fccd383
+Deleted: sha256:d017d287690f0a6f5054c75146011349ee51a8e8f732692e87bef9987254da66
++ docker stop test-frontend-5
+Error response from daemon: No such container: test-frontend-5
++ true
++ docker rm test-frontend-5
+Error response from daemon: No such container: test-frontend-5
++ true
++ docker system prune -f
+Deleted build cache objects:
+id45t30se8yj8o4n1zue1l1wc
+n8ik3kr89ww2addxu2ywsw7fp
+wgvajibqp6ihd0gvqxkqhvb1w
+s9nj40ls9kq49af941j3wpg4f
+m330vmyf56ar0i92q5atx8a1v
+pk7zxh9x3bkk7x4n9ckkbqsnr
+pkdf53gg6vxy0wb3ka3bz44h5
+nwttkuvzkta84kwi4ed5rk1m4
+elv0tr80r5aq2gfgkyr2pukxl
+p8hz5mkyfnr86cngoh17aynz8
+a618g4ja79vzyj8kcqx1kkafw
+8qttmijn709z39a9461igicqi
+jvhcgfqntvgn33qhrekbkn4jr
+gvq5fphucycjkuyh9ghd7wj8w
+idurpo9sxp8ekg2ytv4jbmnft
+jj5u5nots1t8ad5wn9pwokv0e
+d99lswiklprdb8xpim8dbh37n
+jzkp22n3jh5rn3jk68fps4y7l
+d6wmn3npyjtygeittaitocq7a
+i09e8daf26mg3ri3zkg45ytuw
+b8zy2x7a87nai7n42aeqeo4cm
+
+Total reclaimed space: 71.5MB
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] echo
+ FRONTEND BUILD SUCCESS!
+[Pipeline] echo
+ Frontend source code built and pushed: maybetuandat/vdt_fe:2.0
+[Pipeline] echo
+ Frontend config repository updated with new version
+[Pipeline] echo
+ Docker Hub: https://hub.docker.com/r/maybetuandat/vdt_fe
+[Pipeline] echo
+ Frontend ready for deployment!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
