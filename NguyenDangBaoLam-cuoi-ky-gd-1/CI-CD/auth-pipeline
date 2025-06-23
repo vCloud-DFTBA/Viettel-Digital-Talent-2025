@@ -1,0 +1,122 @@
+pipeline {
+  agent {
+    kubernetes {            
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          namespace: cicd
+          name: kaniko
+        spec:
+          containers:              
+          # Kaniko để build image          
+          - name: kaniko
+            image: gcr.io/kaniko-project/executor:debug
+            imagePullPolicy: Always
+            command: [sleep]
+            args: ["9999999"]
+            resources:
+              requests:
+                cpu: "100m"
+                memory: "128Mi"
+              limits:
+                cpu: "500m"
+                memory: "512Mi"
+            volumeMounts:
+            - name: workspace-volume
+              mountPath: /home/jenkins/agent
+            - name: docker-config
+              mountPath: /kaniko/.docker/
+          volumes:          
+          - name: workspace-volume
+            emptyDir: {}          
+          - name: docker-config
+            secret:
+              secretName: dockerhub-credentials
+              items:
+                - key: .dockerconfigjson
+                  path: config.json
+        """
+    }
+  }
+
+
+  environment {
+    IMAGE = "ndbaolam/basic-auth"    
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git url: 'https://github.com/ndbaolam/IT4082-BlueMoon', branch: 'main'
+      }
+    }
+
+    // stage('Check frontend changes') {
+    //   steps {
+    //     script {
+    //       def changed = sh(script: "git diff --name-only HEAD~1 HEAD | grep '^frontend/' || true", returnStdout: true).trim()
+    //       if (!changed) {
+    //         echo "No changes in frontend/, skipping build"
+    //         currentBuild.result = 'SUCCESS'
+    //         currentBuild.description = "No FE changes"
+    //         skipRemainingStages = true
+    //       }
+    //     }
+    //   }
+    // }
+
+    stage('Get Commit ID') {
+      steps {
+        script {
+          def commitHash = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+          env.TAG = commitHash
+          echo "Docker tag will fe: ${env.TAG}"
+        }
+      }
+    }
+
+    stage('Build & Push Docker Image') {      
+      steps {
+        container('kaniko') {
+          sh """
+            /kaniko/executor \
+              --context=./auth-service \
+              --dockerfile=./auth-service/Dockerfile \
+              --destination=${env.IMAGE}:${env.TAG} \
+              --skip-tls-verify
+          """
+        }
+      }
+    }
+
+    stage('Update K8s Manifest Repo') {
+      steps {
+        script {
+          def dockerImageTag = "${env.IMAGE}:${env.TAG}"
+          withCredentials([
+            usernamePassword(
+              credentialsId: 'github_pat',
+              usernameVariable: 'GIT_USERNAME',
+              passwordVariable: 'GIT_TOKEN'
+            )]) {
+            dir('helm/app-chart') {
+              sh """
+                sed -i 's|^\\( *image: \\)ndbaolam/basic-auth:.*|\\1ndbaolam/basic-auth:${TAG}|' values.yaml
+
+                git config --global user.email 'baolam782004@gmail.com'
+                git config --global user.name jenkins
+
+                git remote set-url origin https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/ndbaolam/IT4082-BlueMoon.git
+
+                git add values.yaml
+                git commit -m "Update Auth image to ${env.TAG}"
+                git push origin main
+              """
+            }
+          }
+        }        
+      }
+    }
+  }
+}

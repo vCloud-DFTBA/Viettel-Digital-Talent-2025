@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-deployment
+  namespace: ktpm
+spec:
+  replicas: {{ .Values.fe.replicaCount }}
+  selector:
+    matchLabels:
+      app: fe
+  template:
+    metadata:
+      labels:
+        app: fe
+    spec:
+      containers:
+      - name: fe-container
+        image: {{ .Values.fe.image }}
+        env:
+        - name: VITE_API_URL
+          value: {{ .Values.fe.env.VITE_API_URL }}
+        ports:
+        - containerPort: {{ .Values.fe.service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-service
+  namespace: ktpm
+spec:
+  type: {{ .Values.fe.service.type }}
+  selector:
+    app: fe
+  ports:
+    - port: {{ .Values.fe.service.port }}
+      targetPort: {{ .Values.fe.service.port }}
+      # nodePort: {{ .Values.fe.service.nodePort }}
+---
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fe-ingress
+  namespace: ktpm
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    meta.helm.sh/release-name: my-app
+    meta.helm.sh/release-namespace: ktpm
+spec:
+  ingressClassName: {{ .Values.ingress.className | quote }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.feHost }}
+      secretName: {{ .Values.ingress.tlsSecret }}
+  rules:
+    - host: {{ .Values.ingress.feHost }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fe-service
+                port:
+                  number: {{ .Values.fe.service.port }}
+{{- end }}
