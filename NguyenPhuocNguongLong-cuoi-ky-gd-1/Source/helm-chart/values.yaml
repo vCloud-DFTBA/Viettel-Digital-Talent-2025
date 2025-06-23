@@ -1,0 +1,17 @@
+backend:
+  image:
+    repository: npnlong/backend
+    tag: v2
+    pullPolicy: IfNotPresent
+  service:
+    port: 5000
+    nodePort: 30090
+
+frontend:
+  image:
+    repository: npnlong/frontend
+    tag: v2
+    pullPolicy: IfNotPresent
+  service:
+    port: 80
+    nodePort: 30091
