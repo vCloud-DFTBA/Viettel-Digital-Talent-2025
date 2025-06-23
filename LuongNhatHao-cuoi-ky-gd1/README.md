@@ -239,6 +239,25 @@ Access backend with curl.
 
 ### Authentication
 
+In backend folder, file
+[users.go](https://github.com/theLemonday/demo-app/blob/main/backend/users.go)
+defines 2 middlewares:
+
+- basicAuth middleware: authenticate user
+  - If no credentials match, return forbidden.
+  - If a credentials match, saves user role in request's context for later use.
+- authorizeAdmin middleware: get user's role from request's context. If it's
+  admin role, continue, else return forbidden.
+
+Chain middlewares
+
+```go
+r.With(basicAuth).Get("/api/todos", getTodosHandler)
+r.With(basicAuth, authorizeAdmin).Post("/api/todos", addTodoHandler)
+r.With(basicAuth, authorizeAdmin).Post("/api/todos/{id}/toggle", toggleTodoHandler)
+r.With(basicAuth, authorizeAdmin).Delete("/api/todos/{id}", deleteTodoHandler)
+```
+
 List of system users.
 
 | Username | Password  | Role  |
@@ -270,10 +289,24 @@ List of system users.
 
 ### Rate limit
 
+[go-chi](https://github.com/go-chi/chi) library have rate limit middleware
+[httprate](https://github.com/go-chi/httprate).
+
+Limit by IP, 10 requests/minute.
+
+```go
+r.Use(httprate.LimitByIP(10, time.Minute))
+
+```
+
 [rate_limit.sh](./security/ratelimit/rate_limit.sh) tests the rate limit of
 backend service. It sends 15 requests, the first 5 requests are all POST
 requests, the next 10 requests are random between POST and GET method.
 
-Run rate limit test. ![](assets/ratelimit-test.png)
+Run rate limit test.
 
-Rate limit logs from backend. ![](assets/ratelimit-backend.png)
+![](assets/ratelimit-test.png)
+
+Rate limit logs from backend.
+
+![](assets/ratelimit-backend.png)
